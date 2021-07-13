@@ -66,9 +66,9 @@ public class RubeCube {
         this.dim = dim;
         this.world = world;
         this.configurazione=configurazione;
-        colors[Cube.kTop] = new GLColor(1f, 1f, 1f); //bianco
+        colors[Cube.kTop] = new GLColor(1f, 1f, 1f);    //bianco
         colors[Cube.kFront] = new GLColor(0, 1f, 0);    //verde
-        colors[Cube.kBack] = new GLColor(0, 0, 1f); //blu
+        colors[Cube.kBack] = new GLColor(0, 0, 1f);     //blu
         colors[Cube.kLeft] = new GLColor(1f, 0.5f, 0);  //arancione
         colors[Cube.kBottom] = new GLColor(1f, 1f, 0);  //giallo
         colors[Cube.kRight] = new GLColor(1f,0 , 0);    //rosso

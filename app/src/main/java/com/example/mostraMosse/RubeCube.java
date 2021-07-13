@@ -275,20 +275,11 @@ public class RubeCube {
         }
 
         //System.out.println("DEBUG "+ (System.nanoTime()-xtime));
-        // Paint back
-        i = 0;
-
-        for (j = 0; j < dim; j += 1) {
-            for (k = 0; k < dim; k += 1) {
-                cubes[i][j][k].setFaceColor(Cube.kBack, configGL[c]);
-                c++;
-            }
-        }
 
         // Paint front
         i = dim - 1;
-        for (j = 0; j < dim; j += 1) {
-            for (k = 0; k < dim; k += 1) {
+        for (j = dim -1; j>=0 ; j -= 1) {
+            for (k = 0; k <dim; k += 1) {
                 cubes[i][j][k].setFaceColor(Cube.kFront, configGL[c]);
                 c++;
             }
@@ -303,11 +294,21 @@ public class RubeCube {
             }
         }
 
-        // Paint bottom
-        j = 0;
+
+        // Paint back
+        i = 0;
+        for (j = dim-1; j >=0; j -= 1) {
+            for (k = dim-1; k >=0; k -= 1) {
+                cubes[i][j][k].setFaceColor(Cube.kBack, configGL[c]);
+                c++;
+            }
+        }
+
+        // Paint left
+        k = 0;
         for (i = 0; i < dim; i += 1) {
-            for (k = 0; k < dim; k += 1) {
-                cubes[i][j][k].setFaceColor(Cube.kBottom, configGL[c]);
+            for (j = 0; j < dim; j += 1) {
+                cubes[i][j][k].setFaceColor(Cube.kLeft, configGL[c]);
                 c++;
             }
         }
@@ -320,14 +321,18 @@ public class RubeCube {
                 c++;
             }
         }
-        // Paint left
-        k = 0;
-        for (i = 0; i < dim; i += 1) {
-            for (j = 0; j < dim; j += 1) {
-                cubes[i][j][k].setFaceColor(Cube.kLeft, configGL[c]);
+
+        // Paint bottom
+        j = 0;
+        for (i = dim-1; i >=0; i -= 1) {
+            for (k = 0; k < dim; k += 1) {
+                cubes[i][j][k].setFaceColor(Cube.kBottom, configGL[c]);
                 c++;
             }
         }
+
+
+
     }
 
     private void setupLayers() {

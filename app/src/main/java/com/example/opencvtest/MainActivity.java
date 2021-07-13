@@ -53,6 +53,7 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
     Point textDrawPoint, arrowDrawPoint; //coordinate del punto di origine del testo e della freccia direzionale
     private String[] faces; //array delle facce
     private ImageButton saveFaceButton; //bottone per salvare la faccia
+    private ImageButton undoButton; //bottone per annullare l'ultima faccia scannerizzata
     private int index=-1; //indice che tiene traccia delle facce scansionate
     private char[] sides =new char[6];
     Search search = new Search();
@@ -65,6 +66,7 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_main);
         saveFaceButton =findViewById(R.id.saveFaceButton);
+        undoButton=findViewById(R.id.undoButton);
         faces = new String[6]; //ci sono 6 facce
 
         if(permission()) { //dopo aver chiesto i permessi per la fotocamera
@@ -97,9 +99,102 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
         if (!Search.isInited())
             Search.init();
 
+        //listener bottone che salva faccia
         saveFaceButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 saveFace();
+            }
+        });
+
+        //listener bottone che salva faccia
+        undoButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(index>0)
+                    index--;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             }
         });
     }

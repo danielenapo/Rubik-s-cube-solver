@@ -20,8 +20,9 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        opencv:camera_id="any"
-        opencv:show_fps="true" />
+        opencv:camera_id="any" />
+
+    <!--opencv:show_fps="true"  per mostrare fps in alto (debug) !-->
 
     <ImageButton
         android:id="@+id/saveFaceButton"
@@ -34,6 +35,22 @@
         android:layout_marginRight="56dp"
         android:layout_marginBottom="39dp"
         android:src="@android:drawable/ic_menu_camera"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/undoButton"
+        android:layout_width="108dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="317dp"
+        android:layout_marginEnd="600dp"
+        android:layout_marginRight="600dp"
+        android:layout_marginBottom="29dp"
+        android:src="@android:drawable/ic_menu_revert"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

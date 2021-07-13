@@ -20,12 +20,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/testCubo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="391dp"
         android:layout_marginBottom="292dp"
-        android:text="Instructions"
+        android:text="test cubo 3d"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

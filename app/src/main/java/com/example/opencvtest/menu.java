@@ -11,21 +11,31 @@ import android.widget.Button;
 import com.example.mostraMosse.PuzzleDroidActivity;
 
 public class menu extends AppCompatActivity {
-    private Button scanButton;
-
+    private Button scanButton, cubeButton;
+    private Intent scanIntent, cubeIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         scanButton= findViewById(R.id.scan_button);
-        Intent myIntent = new Intent(this, PuzzleDroidActivity.class);
+        cubeButton= findViewById(R.id.testCubo);
+
+        scanIntent = new Intent(this, MainActivity.class);
+        cubeIntent = new Intent(this, PuzzleDroidActivity.class);
 
 
         //listener del bottone per iniziare la scannerizzazione
         scanButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                startActivity(myIntent);
+                startActivity(scanIntent);
+            }
+        });
+
+        //listener del bottone per test cubo
+        cubeButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(cubeIntent);
             }
         });
     }

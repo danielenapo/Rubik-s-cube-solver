@@ -38,7 +38,6 @@ import static org.opencv.imgproc.Imgproc.putText;
 import static org.opencv.imgproc.Imgproc.rectangle;
 
 
-
 public class MainActivity extends Activity implements CvCameraViewListener2 {
     JavaCameraView camera;//view della fotocamera
     BaseLoaderCallback baseLoaderCallback;//bo
@@ -53,7 +52,7 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
             new Point(-1,-1),new Point(0,-1),new Point(1,-1),
             new Point(-1,0),new Point(0,0),new Point(1,0),
             new Point(-1,1),new Point(0,1),new Point(1,1)};
-    Point textDrawPoint, arrowDrawPoint; //coordinate del punto di origine del testo e della freccia direzionale
+    Point textDrawPoint, arrowDrawPoint, textFaceIndex; //coordinate del punto di origine del testo e della freccia direzionale
     private String[] faces; //array delle facce
     private ImageButton saveFaceButton; //bottone per salvare la faccia
     private ImageButton undoButton; //bottone per annullare l'ultima faccia scannerizzata
@@ -177,6 +176,7 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
         for (int i = 0; i < squares.size(); i++) {
             Square s = squares.get(i);
             textDrawPoint = new Point(s.getCenter().x-100,s.getCenter().y);
+            textFaceIndex= new Point(100, 100); //stampa il contatore della faccia in alto a sx;
             Scalar showColor;
             switch (s.getColor()){
                 case "R":
@@ -203,16 +203,17 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
             }
             rectangle(mRgba,  s.getTopLeftPoint(), s.getBottomRightPoint(), showColor, thicknessRect);
             putText(mRgba,s.getColor(),textDrawPoint,1,6,new Scalar(153,50,204,255),8);
+            putText(mRgba, "Face "+(index+2), textFaceIndex, 1, 6, new Scalar(153,50,204,255), 8 );
 
             //stampo la freccia solop se non è la prima scannerizzazione
             if(index>=0) {
                 arrowDrawPoint = new Point(mRgba.width() - 600, mRgba.height() - 300);
                 if (index<3)
-                    putText(mRgba, "right", arrowDrawPoint, 1, 4, new Scalar(0, 0, 255, 255), 7);
+                    putText(mRgba, "right", arrowDrawPoint, 1, 4, new Scalar(153,50,204,255), 7);
                 else if(index==3)
-                    putText(mRgba, "right + up", arrowDrawPoint, 1, 4, new Scalar(0, 0, 255, 255), 7);
+                    putText(mRgba, "right + up", arrowDrawPoint, 1, 4, new Scalar(153,50,204,255), 7);
                 else if(index==4)
-                    putText(mRgba, "down + down", arrowDrawPoint, 1, 4, new Scalar(0, 0, 255, 255), 7);
+                    putText(mRgba, "down + down", arrowDrawPoint, 1, 4, new Scalar(153,50,204,255), 7);
             }
         }
     }
@@ -243,15 +244,57 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
         if(index==5) {  //vedo se ci sono errori e cambio activity
             String sol = solve(faces, sides);
             Log.d("faccia", sol);
-            new AlertDialog.Builder(this)
-                    .setTitle("SOLUZIONE")
-                    .setMessage(sol)
-                    // A null listener allows the button to dismiss the dialog and take no further action.
-                    .setNegativeButton(android.R.string.no, null)
-                    .show();
-            cubeIntent.putExtra("configurazione", faces); //mando configurazione all'activity del cubo
-            cubeIntent.putExtra("colori facce", sides); //mando il vettore dei colori delle facce
-            startActivity(cubeIntent); //passa all'activity del cubo
+
+            // SE CI SONO ERRORI STAMPO L'ERRORE E FACCIO RIPARTIRE LA SCANNERIZZAZIONE
+            if(sol.length()==0) {
+                sol = "Cube already solved!";
+                new AlertDialog.Builder(this)
+                        .setTitle("ERROR")
+                        .setMessage(sol+"\nScan correctly to continue.")
+                        .setPositiveButton(android.R.string.yes, null)
+                        .show();
+                index=-1;
+            }
+            else if (sol.contains("Error")) {
+                switch (sol.charAt(sol.length() - 1)) {
+                    case '1':
+                        sol = "There are not exactly nine squares of each color!";
+                        break;
+                    case '2':
+                        sol = "Not all 12 edges exist exactly once!";
+                        break;
+                    case '3':
+                        sol = "Flip error: One edge has to be flipped!";
+                        break;
+                    case '4':
+                        sol = "Not all 8 corners exist exactly once!";
+                        break;
+                    case '5':
+                        sol = "Twist error: One corner has to be twisted!";
+                        break;
+                    case '6':
+                        sol = "Parity error: Two corners or two edges have to be exchanged!";
+                        break;
+                    case '7':
+                        sol = "No solution exists for the given maximum move number!";
+                        break;
+                    case '8':
+                        sol = "Timeout, no solution found within given maximum time!";
+                        break;
+                }
+                new AlertDialog.Builder(this)
+                        .setTitle("ERROR")
+                        .setMessage(sol+"\nScan correctly to continue.")
+                        .setPositiveButton(android.R.string.yes, null)
+                        .show();
+                index=-1;
+            }
+            //SE NON CI SONO ERRORI PASSO LA SOLUZIONE ALL'ACTIVITY DEL CUBO
+            else {
+                cubeIntent.putExtra("configurazione", faces); //mando configurazione all'activity del cubo
+                cubeIntent.putExtra("colori facce", sides); //mando il vettore dei colori delle facce. ordine:[0:F, 1:R, 2:B, 3:L, 4:U, 5:D]
+                startActivity(cubeIntent); //passa all'activity del cubo
+            }
         }
 
     }
@@ -301,40 +344,9 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
         //chiama funzione della libreria kociemba che risolve il cubo
         result= search.solution(cubeString, 24, 100,0, 0);
         Log.d("faccia","RESULT: "+result);
-        // Replace the error messages with more meaningful ones in your language
-        if(result.length()==0)
-            result="Cube already solved";
-        else if (result.contains("Error"))
-            switch (result.charAt(result.length() - 1)) {
-                case '1':
-                    result = "There are not exactly nine squares of each color!";
-                    break;
-                case '2':
-                    result = "Not all 12 edges exist exactly once!";
-                    break;
-                case '3':
-                    result = "Flip error: One edge has to be flipped!";
-                    break;
-                case '4':
-                    result = "Not all 8 corners exist exactly once!";
-                    break;
-                case '5':
-                    result = "Twist error: One corner has to be twisted!";
-                    break;
-                case '6':
-                    result = "Parity error: Two corners or two edges have to be exchanged!";
-                    break;
-                case '7':
-                    result = "No solution exists for the given maximum move number!";
-                    break;
-                case '8':
-                    result = "Timeout, no solution found within given maximum time!";
-                    break;
-            }
+
         return result;
     }
-
-
 
     //++++++++++++++++++++++++++++++INIZIALIZZAZIONE OPENCV++++++++++++++++++++++++++
     @Override
@@ -359,7 +371,5 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
         }
         return false;
     }
-
-
 
 }

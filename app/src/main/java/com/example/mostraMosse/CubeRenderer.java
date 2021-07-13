@@ -52,7 +52,7 @@ public class CubeRenderer implements GLSurfaceView.Renderer {
     public void onSurfaceCreated(GL10 g, EGLConfig config) {
         GL11 gl = (GL11) g;
 
-        gl.glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
+        gl.glClearColor(0.0f, 0.0f, 0.0f, 1f);
         gl.glClearDepthf(1.0f);
         gl.glEnable(GL11.GL_DEPTH_TEST);
         gl.glDepthFunc(GL11.GL_LEQUAL);

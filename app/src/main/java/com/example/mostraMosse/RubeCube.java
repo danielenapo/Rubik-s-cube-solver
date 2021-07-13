@@ -306,8 +306,8 @@ public class RubeCube {
 
         // Paint left
         k = 0;
-        for (i = 0; i < dim; i += 1) {
-            for (j = 0; j < dim; j += 1) {
+        for (j = dim-1; j >=0; j -= 1) {
+            for (i = 0; i < dim; i += 1) {
                 cubes[i][j][k].setFaceColor(Cube.kLeft, configGL[c]);
                 c++;
             }

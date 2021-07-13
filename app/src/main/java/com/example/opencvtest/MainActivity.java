@@ -252,7 +252,6 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
         }
         cubeIntent.putExtra("configurazione", faces); //mando configurazione all'activity del cubo
         startActivity(cubeIntent); //passa all'activity del cubo
-        //ciao napo
     }
 
 

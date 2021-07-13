@@ -59,7 +59,6 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
     private ImageButton undoButton; //bottone per annullare l'ultima faccia scannerizzata
     private int index=-1; //indice che tiene traccia delle facce scansionate
     private char[] sides =new char[6];
-    Search search = new Search();
     private Intent cubeIntent;
 
 
@@ -241,7 +240,7 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
         Log.i("faccia", faces[index].toString());
 
         if(index==5) { //se abbiamo scansionato tutte le facce, scansioniamo il cubo
-            String sol = solve();
+            String sol = solve(faces, sides);
             Log.d("faccia", sol);
             new AlertDialog.Builder(this)
                     .setTitle("SOLUZIONE")
@@ -251,12 +250,15 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
                     .show();
         }
         cubeIntent.putExtra("configurazione", faces); //mando configurazione all'activity del cubo
+        cubeIntent.putExtra("colori facce", sides); //mando il vettore dei colori delle facce
         startActivity(cubeIntent); //passa all'activity del cubo
     }
 
 
     //++++++++++++++++++++++++++++++FUNZIONE CHE RISOLVE IL CUBO++++++++++++++++++++++++++++++++++++++++++
-    private String solve(){
+    public static String solve(String[] faces, char [] sides){
+        Search search = new Search(); //fai import cs.min2phase.Search; (libreria per soluzione cubo)
+
         //DEVO CAMBIARE L'ORDINE DELLE FACCE (perchè la libreria ne richiede uno diverso):
         //dalla scannerizzazione è così:
         //[0:F, 1:R, 2:B, 3:L, 4:U, 5:D]
@@ -276,7 +278,7 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
 
         //traduco i colori per la libreria (devo passare dalle iniziali dei colori alle iniziali della faccia -> se dal lato davanti avevo il blu, cambia tutti i 'B' in 'F', e così via)
         for(int i=0; i<faces.length; i++){ //scorre le facce (6 in tuttio)
-            for(int j=0; j<squares.size(); j++){ //scorre i quadrati di ogni faccia (9 per faccia)
+            for(int j=0; j<9; j++){ //scorre i quadrati di ogni faccia (9 per faccia)
                 if(faceSwap[i].charAt(j)==sides[0])
                     tempString.setCharAt(9 * i + j, 'F'); //Front
                 if(faceSwap[i].charAt(j)==sides[1])
@@ -301,7 +303,6 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
         if(result.length()==0)
             result="Cube already solved";
         else if (result.contains("Error"))
-            index=0; //faccio ripartire la lettura
             switch (result.charAt(result.length() - 1)) {
                 case '1':
                     result = "There are not exactly nine squares of each color!";

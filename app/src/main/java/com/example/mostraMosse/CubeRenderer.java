@@ -132,6 +132,8 @@ public class CubeRenderer implements GLSurfaceView.Renderer {
         yMax = pointInPlane[1] * -6f;
         worldBoundsSet = true;
         menu.setBounds(xMin, xMax, yMin, yMax);
+
+
     }
 
     public Vec3 screenToWorld(Vec3 p) {

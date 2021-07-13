@@ -256,6 +256,7 @@ public class CubeMenu extends GLEnvironment {
     }
 
     public void setBounds(float xMin, float xMax, float yMin, float yMax) { //posiziono ivari elementi sullo schermo
+        //System.out.println("|||||BOUNDS "+xMin+" "+xMax+" "+yMin+" "+yMin);
         this.xMin = xMin;
         this.xMax = xMax;
         this.yMin = yMin;

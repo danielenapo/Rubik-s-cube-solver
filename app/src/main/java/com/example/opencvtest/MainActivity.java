@@ -43,7 +43,6 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
     BaseLoaderCallback baseLoaderCallback;//bo
     Mat mRgba;//matrice dei pixel
     //COORDINATE QUADRATO
-    Scalar colorRect=new Scalar(255,0,0);
     int thicknessRect=13, sizeRect=125;
     ArrayList<Square> squares; //lista dei 9 quadrati da stampare su schermo
     private int squareLayoutDistance = 200; //distanza tra l'origine di un quadrato e un altro
@@ -53,6 +52,7 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
             new Point(-1,0),new Point(0,0),new Point(1,0),
             new Point(-1,1),new Point(0,1),new Point(1,1)};
     Point textDrawPoint, arrowDrawPoint, textFaceIndex; //coordinate del punto di origine del testo e della freccia direzionale
+    Scalar colorText = new Scalar(153,50,204,255); //colore dei testi
     private String[] faces; //array delle facce
     private ImageButton saveFaceButton; //bottone per salvare la faccia
     private ImageButton undoButton; //bottone per annullare l'ultima faccia scannerizzata
@@ -113,7 +113,7 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
         //listener bottone che salva faccia
         undoButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(index>0)
+                if(index>=0)
                     index--;
             }
         });
@@ -163,10 +163,11 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
 
     //++++++++++++++++++funzione che controlla il colore+++++++++++++++++++
     private void processColor(){
+        Scalar tmpColor;
         for(Square s : squares) {
             Mat rectRgba = mRgba.submat(s.getRect());  //considero solo i pixel nel quadrato
-            colorRect = mean(rectRgba); //faccio una media dei colori (rgb)
-            s.setColorRgb(colorRect);
+            tmpColor = mean(rectRgba); //faccio una media dei colori (rgb)
+            s.setColorRgb(tmpColor);
         }
 
     }
@@ -202,18 +203,18 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
                     break;
             }
             rectangle(mRgba,  s.getTopLeftPoint(), s.getBottomRightPoint(), showColor, thicknessRect);
-            putText(mRgba,s.getColor(),textDrawPoint,1,6,new Scalar(153,50,204,255),8);
-            putText(mRgba, "Face "+(index+2), textFaceIndex, 1, 6, new Scalar(153,50,204,255), 8 );
+            putText(mRgba,s.getColor(),textDrawPoint,1,6,colorText,8);
+            putText(mRgba, "Face "+(index+2), textFaceIndex, 1, 6, colorText, 8 );
 
             //stampo la freccia solop se non è la prima scannerizzazione
             if(index>=0) {
-                arrowDrawPoint = new Point(mRgba.width() - 600, mRgba.height() - 300);
+                arrowDrawPoint = new Point(mRgba.width() - 450, mRgba.height() - 300);
                 if (index<3)
-                    putText(mRgba, "right", arrowDrawPoint, 1, 4, new Scalar(153,50,204,255), 7);
+                    putText(mRgba, "right", arrowDrawPoint, 1, 4, colorText, 7);
                 else if(index==3)
-                    putText(mRgba, "right + up", arrowDrawPoint, 1, 4, new Scalar(153,50,204,255), 7);
+                    putText(mRgba, "right + up", arrowDrawPoint, 1, 4, colorText, 7);
                 else if(index==4)
-                    putText(mRgba, "down + down", arrowDrawPoint, 1, 4, new Scalar(153,50,204,255), 7);
+                    putText(mRgba, "down + down", arrowDrawPoint, 1, 4, colorText, 7);
             }
         }
     }

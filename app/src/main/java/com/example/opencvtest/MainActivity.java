@@ -239,7 +239,8 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
         faces[index] = tempString;
         Log.i("faccia", faces[index].toString());
 
-        if(index==5) { //se abbiamo scansionato tutte le facce, scansioniamo il cubo
+        //ULTIMA SCANSIONE
+        if(index==5) {  //vedo se ci sono errori e cambio activity
             String sol = solve(faces, sides);
             Log.d("faccia", sol);
             new AlertDialog.Builder(this)
@@ -248,10 +249,11 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
                     // A null listener allows the button to dismiss the dialog and take no further action.
                     .setNegativeButton(android.R.string.no, null)
                     .show();
+            cubeIntent.putExtra("configurazione", faces); //mando configurazione all'activity del cubo
+            cubeIntent.putExtra("colori facce", sides); //mando il vettore dei colori delle facce
+            startActivity(cubeIntent); //passa all'activity del cubo
         }
-        cubeIntent.putExtra("configurazione", faces); //mando configurazione all'activity del cubo
-        cubeIntent.putExtra("colori facce", sides); //mando il vettore dei colori delle facce
-        startActivity(cubeIntent); //passa all'activity del cubo
+
     }
 
 

@@ -59,6 +59,7 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
     private int index=-1; //indice che tiene traccia delle facce scansionate
     private char[] sides =new char[6];
     private Intent cubeIntent;
+    long timeOffset;
 
 
 
@@ -156,19 +157,21 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
                 squares.add(new Square(new Point(squareLocation.x*squareLayoutDistance+tempCenter.x,squareLocation.y*squareLayoutDistance+tempCenter.y),sizeRect));
             }
         }
-        processColor(); //controllo i colori
+        if(System.currentTimeMillis()-timeOffset>=200)
+            processColor(); //controllo i colori
         drawSquares(); //disegno i rettangoli sullo schermo
         return mRgba;
     }
 
     //++++++++++++++++++funzione che controlla il colore+++++++++++++++++++
-    private void processColor(){
+    private void processColor() {
         Scalar tmpColor;
         for(Square s : squares) {
             Mat rectRgba = mRgba.submat(s.getRect());  //considero solo i pixel nel quadrato
             tmpColor = mean(rectRgba); //faccio una media dei colori (rgb)
             s.setColorRgb(tmpColor);
         }
+        timeOffset=System.currentTimeMillis();
 
     }
 
@@ -208,7 +211,7 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
 
             //stampo la freccia solop se non è la prima scannerizzazione
             if(index>=0) {
-                arrowDrawPoint = new Point(mRgba.width() - 450, mRgba.height() - 300);
+                arrowDrawPoint = new Point(100, mRgba.height() - 300);
                 if (index<3)
                     putText(mRgba, "right", arrowDrawPoint, 1, 4, colorText, 7);
                 else if(index==3)
@@ -222,7 +225,6 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
 
     //++++++++++++++++++++++funzione che salva nel vettore faces la faccia corrente, quando viene cliccato il pulsante++++++++++++++++++
     public void saveFace(){
-
         //creo la stringa dei colori dei quadrati della faccia, chiamando il metodo getColor() per ogni Square della faccia
         String tempString = "";
         for (int i = 0; i < squares.size(); i++) {

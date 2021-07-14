@@ -20,6 +20,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        opencv:show_fps="true"
         opencv:camera_id="any" />
 
     <!--opencv:show_fps="true"  per mostrare fps in alto (debug) !-->

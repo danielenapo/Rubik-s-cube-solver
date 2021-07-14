@@ -926,7 +926,7 @@ public class RubeCube {
     }
 
     public void mossa(int side, int layer, int vh, boolean orario){
-        CubeView.stopInput=true;
+
 
         curSide = cubeSides[side];
 

@@ -151,16 +151,17 @@ public class CubeMenu extends GLEnvironment {
         prevMove.setClickListener(new TextureClickListener() {
             public void onClick() {
                 if(iteratorMosse.hasPrevious()){
+                    CubeView.stopInput=true;
                     try {
                         cube.tradMossa(iteratorMosse.previous(), false);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    try {
+                    /*try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
-                    }
+                    }*/
                 }
 
 
@@ -173,16 +174,17 @@ public class CubeMenu extends GLEnvironment {
 
             public void onClick() {
                 if(iteratorMosse.hasNext()){
+                    CubeView.stopInput=true;
                     try {
                         cube.tradMossa(iteratorMosse.next(),true);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    try {
+                    /*try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
-                    }
+                    }*/
                 }
 
             }

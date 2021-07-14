@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.view.MotionEvent;
 import android.widget.Button;
 
+import com.example.opencvtest.MainActivity;
 import com.example.opencvtest.R;
 import com.threeDBJ.MGraphicsLib.GLColor;
 import com.threeDBJ.MGraphicsLib.GLEnvironment;
@@ -208,7 +209,7 @@ public class CubeMenu extends GLEnvironment {
 
     public void setListaMosse(char[] configurazione) {//setto la lista di mosse partendo dalla configurazione del cubo
 
-        String faces = "FBLDUFLLRDUURRLDLUFBFDFBDULRRBFDUULRLRDDLFFRBBUUDBBBFR";
+        //String faces = "FBLDUFLLRDUURRLDLUFBFDFBDULRRBFDUULRLRDDLFFRBBUUDBBBFR";
 
         /*
          *   U bianco
@@ -246,8 +247,9 @@ public class CubeMenu extends GLEnvironment {
 
         //System.out.println("DEBUG "+Arrays.toString(tmp)+" --- "+configStr);
         long xtime= System.nanoTime();
+        String solution = MainActivity.solve(PuzzleDroidActivity.configurazione, PuzzleDroidActivity.coloriFacce);
         //String solution = Search.solution(configStr,21,6,false);
-        String solution = "R L F2 B' U2 R' B2 D L' D' F' U2 B2 L2 U L2 U2 F2 L2 U'";
+        //String solution = "R L F2 B' U2 R' B2 D L' D' F' U2 B2 L2 U L2 U2 F2 L2 U'";
         System.out.println("|||||| TEMPO calcolo soluzione: "+ (System.nanoTime()-xtime));
         System.out.println("|||||| soluzione: "+ solution);
 

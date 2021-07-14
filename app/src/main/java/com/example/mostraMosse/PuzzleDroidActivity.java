@@ -16,8 +16,8 @@ public class PuzzleDroidActivity extends Activity {
     SharedPreferences prefs;
     CubeView cubeView;
     Bundle bundle;
-    String[] configurazione;
-    char[] coloriFacce;
+    static String[] configurazione;
+    static char[] coloriFacce;
     char[] configAsChArr;
 
     private char[] prova={'g','b','o','y','w','g','o','o','r','y','w','w','r','r','o','y','o','w','g','b','g','y','g','b','y','w','o','r','r','b','g','y','w','w','o','r','o','r','y','y','o','g','g','r','b','b','w','w','y','b','b','b','g','r'};
@@ -86,4 +86,7 @@ public class PuzzleDroidActivity extends Activity {
         return conf2;
     }
 
+    public static String[] getConfigurazione() {
+        return configurazione;
+    }
 }

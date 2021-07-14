@@ -988,24 +988,30 @@ public class RubeCube {
                 mossa(Cube.kFront,0,Layer.V,forward);
                 break;
             case "R":
+                forward=!forward;
                 mossa(Cube.kFront,2,Layer.V,forward);
                 break;
             case "R'":
+                forward=!forward;
                 mossa(Cube.kFront,2,Layer.V,!forward);
                 break;
             case "R2":
+                forward=!forward;
                 mossa(Cube.kFront,2,Layer.V,forward);
                 Thread.sleep(500);
                 mossa(Cube.kFront,2,Layer.V,forward);
                 break;
 
             case "U":
+                forward=!forward;
                 mossa(Cube.kFront,0,Layer.H,forward);
                 break;
             case "U'":
+                forward=!forward;
                 mossa(Cube.kFront,0,Layer.H,!forward);
                 break;
             case "U2":
+                forward=!forward;
                 mossa(Cube.kFront,0,Layer.H,forward);
                 Thread.sleep(500);
                 mossa(Cube.kFront,0,Layer.H,forward);
@@ -1023,12 +1029,15 @@ public class RubeCube {
                 break;
 
             case "F":
+                forward=!forward;
                 mossa(Cube.kLeft,2,Layer.V,forward);
                 break;
             case "F'":
+                forward=!forward;
                 mossa(Cube.kLeft,2,Layer.V,!forward);
                 break;
             case "F2":
+                forward=!forward;
                 mossa(Cube.kLeft,2,Layer.V,forward);
                 Thread.sleep(500);
                 mossa(Cube.kLeft,2,Layer.V,forward);

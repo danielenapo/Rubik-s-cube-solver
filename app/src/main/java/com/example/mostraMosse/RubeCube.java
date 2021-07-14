@@ -969,7 +969,7 @@ public class RubeCube {
         }while(Math.abs(angle) <= Math.PI * 0.5);
 
         curLayer.dragEnd();
-//////////////////////////////////////////
+/////////////////////////////////////////
     }
 
     public void tradMossa(String mossa, boolean forward) throws InterruptedException {

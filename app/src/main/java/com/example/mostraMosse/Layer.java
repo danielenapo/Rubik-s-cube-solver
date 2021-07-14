@@ -51,21 +51,7 @@ public class Layer {
         cubes.add(newCube);
     }
 
-    public void startAnimation() {
-        for (Cube cube : cubes) {
-            if (cube != null) {
-                cube.startAnimation();
-            }
-        }
-    }
 
-    public void endAnimation() {
-        for (Cube cube : cubes) {
-            if (cube != null) {
-                cube.endAnimation();
-            }
-        }
-    }
 
     /* Rotates the layer to a stable position. Calls cube.endLayerAnimation
        when finished to update layers and sides. */

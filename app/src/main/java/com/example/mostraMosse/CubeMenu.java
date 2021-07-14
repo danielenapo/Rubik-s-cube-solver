@@ -43,12 +43,8 @@ public class CubeMenu extends GLEnvironment {
 
     private TextureFont font;
 
-    //private TextureStateView toggler;
     private TextureView menuView;
-    //public TextureTimer timer;
-    //private TextureTextView /*timerText,*/ cubeText, sliderText;
-    //private TextureButton /*showTimer, resetTimer,*/ scrambleCube, resetCube;
-    //private TextureSlider slider;
+
     private TextureButton prevMove;
     private TextureButton nextMove;
 
@@ -69,82 +65,22 @@ public class CubeMenu extends GLEnvironment {
         this.font = font;
         this.configurazione=cube.getConfigurazione();
         setListaMosse(configurazione);
-        //toggler = new TextureStateView();
+
         menuView = new TextureView();
-        //timer = new TextureTimer(this.font);
-        //timerText = new TextureTextView(this.font);
-        //cubeText = new TextureTextView(this.font);
-        //sliderText = new TextureTextView(this.font);
-        //showTimer = new TextureButton(this.font);
-        //resetTimer = new TextureButton(this.font);
-        //scrambleCube = new TextureButton(this.font);
-        //resetCube = new TextureButton(this.font);
 
         nextMove= new TextureButton(this.font);
         prevMove = new TextureButton(this.font);
-        //int[] sliderVals = { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
-        //slider = new TextureSlider(new ArrayList<>(Arrays.asList(2, 3, 4, 5, 6, 7, 8)));
+
 
         generate();
         enableTextures();
     }
 
     public void init(GL11 gl, Context context) {  //setto la texture e assegno una funzione handler per ogni bottone
-        /*toggler.addTexture(gl, context, R.drawable.menu_button1);
-        toggler.addTexture(gl, context, R.drawable.menu_button2);
-        toggler.setClickListener(new TextureClickListener() {
-            public void onClick() {
-                if (!showing) {
-                    showing = true;
 
-                    toggler.animate(new TranslateAnimation(10, 0f, MENU_HEIGHT, 0f));
-                } else {
-                    showing = false;
-                    menuView.animate(new TranslateAnimation(10, 0f, -1f * MENU_HEIGHT, 0f));
-                    toggler.animate(new TranslateAnimation(10, 0f, -1f * MENU_HEIGHT, 0f));
-                }
-            }
-        });*/
         showing = true;
         //menuView.animate(new TranslateAnimation(10, 0f, MENU_HEIGHT, 0f));
         menuView.setTexture(gl, context, R.drawable.menu_background);
-        //timer.setTexture(gl, context, R.drawable.transparent);
-
-        //timerText.setTexture(gl, context, R.drawable.transparent);
-        //cubeText.setTexture(gl, context, R.drawable.transparent);
-        //sliderText.setTexture(gl, context, R.drawable.transparent);
-
-        //showTimer.setTexture(gl, context, R.drawable.btn_transparent_normal);
-        //showTimer.setPressedTexture(gl, context, R.drawable.btn_transparent_pressed);
-        /*showTimer.setClickListener(new TextureClickListener() {
-            public void onClick() {
-                showingTimer = !showingTimer;
-                timer.reset();
-                if (showingTimer) {
-                    timer.start();
-                    showTimer.setText("Off");
-                } else {
-                    timer.stop();
-                    showTimer.setText("On");
-                }
-            }
-        });*/
-
-        //resetTimer.setTexture(gl, context, R.drawable.btn_transparent_normal);
-        //resetTimer.setPressedTexture(gl, context, R.drawable.btn_transparent_pressed);
-        /*resetTimer.setClickListener(new TextureClickListener() {
-            public void onClick() {
-                timer.reset();
-            }
-        });*/
-
-        /*scrambleCube.setTexture(gl, context, R.drawable.btn_transparent_normal);
-        scrambleCube.setPressedTexture(gl, context, R.drawable.btn_transparent_pressed);
-        scrambleCube.setClickListener(new TextureClickListener() {
-            public void onClick() {
-                cube.scramble();
-            }
-        });*/
 
         prevMove.setTexture(gl, context, R.drawable.btn_transparent_normal);
         prevMove.setPressedTexture(gl, context, R.drawable.btn_transparent_pressed);
@@ -190,23 +126,7 @@ public class CubeMenu extends GLEnvironment {
             }
 
         });
-/*
-        resetCube.setTexture(gl, context, R.drawable.btn_transparent_normal);
-        resetCube.setPressedTexture(gl, context, R.drawable.btn_transparent_pressed);
-        resetCube.setClickListener(new TextureClickListener() {
-            public void onClick() {
-                cube.reset();
-            }
-        });
 
-        slider.setTexture(gl, context, R.drawable.slider_bar, R.drawable.slider_button);
-        slider.setOnValueChangedListener(new OnValueChangedListener() {
-            public void onValueChanged(Object o) {
-                int newDim = (Integer) o;
-                sliderText.setText(newDim + "x" + newDim);
-                cube.setDimension(newDim);
-            }
-        });*/
     }
 
     public void setListaMosse(char[] configurazione) {//setto la lista di mosse partendo dalla configurazione del cubo
@@ -282,8 +202,6 @@ public class CubeMenu extends GLEnvironment {
         float xPadding = (r - l) / 16f;
         float yPadding = (t - b) / 10f;
 
-        /*toggler.setFace(l + xPadding, r + xPadding, b, t, z, white);
-        toggler.setTextureBounds(1f, 0.42f);*/
 
         //MENU_HEIGHT = (t - b) * 1.5f;
         //MENU_WIDTH = (r - l) * 2.8f;
@@ -347,25 +265,12 @@ public class CubeMenu extends GLEnvironment {
 
         menuView.animate();
         menuView.draw(gl);
-/*
-        toggler.animate();
-        toggler.draw(gl);
-*/
-        /*if (showingTimer) {
-            timer.draw(gl);
-        }*/
+
 
         gl.glPopMatrix();
     }
 
-    /*public void pause() {
-        timer.pause(true);
-    }
 
-    public void resume() {
-        timer.pause(false);
-    }
-    */
     private void resetTouch() {
         touchMode = NONE;
         activePtrId = -1;
@@ -378,26 +283,26 @@ public class CubeMenu extends GLEnvironment {
 
         final int action = e.getAction();
         switch (action & MotionEvent.ACTION_MASK) {
+
             case MotionEvent.ACTION_DOWN:       //schermo premuto
                 touchMode = SINGLE_TOUCH;
                 activePtrId = e.getPointerId(0);
                 x1 = e.getX();
                 y1 = e.getY();
                 worldCoords = screenToWorld(x1, y1);
-                /*if (toggler.handleActionDown(worldCoords)) {
-                    return true;
-                }*/
+
                 return menuView.handleActionDown(worldCoords);
+
             case MotionEvent.ACTION_UP:         //schermo rilasciato
                 resetTouch();
                 worldCoords = screenToWorld(x1, y1);
-                /*if (toggler.handleActionUp(worldCoords)) {
-                    return true;
-                }*/
+
                 return menuView.handleActionUp(worldCoords);
+
             case MotionEvent.ACTION_CANCEL:
                 resetTouch();
                 break;
+
             case MotionEvent.ACTION_MOVE:           //movimento tra ACTION_DOWN e ACTION_UP
                 if (touchMode == SINGLE_TOUCH) {
                     final int ptrInd = e.findPointerIndex(activePtrId);
@@ -405,13 +310,15 @@ public class CubeMenu extends GLEnvironment {
                     float y = e.getY(ptrInd);
                     if (touchMode == SINGLE_TOUCH) {
                         worldCoords = screenToWorld(x, y);
-                        return /*toggler.handleActionMove(worldCoords) ||*/ menuView.handleActionMove(worldCoords);
+                        return menuView.handleActionMove(worldCoords);
                     }
                 }
                 break;
+
             case MotionEvent.ACTION_POINTER_DOWN:
                 touchMode = MULTI_TOUCH;
                 break;
+
             case MotionEvent.ACTION_POINTER_UP:
                 if (e.getPointerCount() == 1) {
                     touchMode = SINGLE_TOUCH;
@@ -420,31 +327,5 @@ public class CubeMenu extends GLEnvironment {
         }
         return false;
     }
-
-    /*public void save(SharedPreferences prefs) {
-        //Util.saveTimerTime(prefs, timer.getTime(), timer.isStarted() || timer.isPaused());
-        saveP
-    }*/
-
-    /*public void restore() {
-        //sliderText.setText(restoreCubeDim + "x" + restoreCubeDim);
-        //slider.setIndex(restoreCubeDim - 2);
-        timer.setTime(restoreTime);
-        if (restoreStartTimer) {
-            showingTimer = true;
-            timer.start();
-            showTimer.setText("Off");
-        }
-        restoreTime = 0;
-        restoreStartTimer = false;
-        restoreOnSetBounds = false;
-    }*/
-
-    /*public void setRestore(SharedPreferences prefs) {
-        restoreTime = Util.getTimerTime(prefs);
-        restoreStartTimer = Util.getTimerStarted(prefs);
-        restoreCubeDim = Util.getDimension(prefs);
-        restoreOnSetBounds = true;
-    }*/
 
 }

@@ -75,11 +75,6 @@ public class RubeCube {
         setup();
     }
 
-    public void setDimension(int dim) { //attraverso l'handler controllo se viene cambiato il numero di facce del cubo dall'utente
-        this.dim = dim;
-        handler.removeCallbacks(setWorldDim);
-        handler.post(setWorldDim);
-    }
 
     public void setup() {
         faceColors = new int[6][dim][dim];
@@ -188,7 +183,7 @@ public class RubeCube {
         }
     }
 
-    void setupSides() {
+    void setupSides() {         //disegna facce con colori default (cubo completato)
         int i, j, k;
         // Paint back
         i = 0;
@@ -402,34 +397,9 @@ public class RubeCube {
         }
     }
 
-    public void reset() {
-        handler.post(resetWorld);
-    }
 
-    /*public void scramble() {
-        int index;
-        CubeSide s;
-        Layer l;
-        float dir;
-        Vec2 layerInd = new Vec2();
-        for (int i = 0; i < 40; i += 1) {
-            index = random.nextInt(dim);
-            dir = (float) random.nextInt(2);
-            if (dir == 0f) dir = -1f;
-            s = cubeSides[random.nextInt(cubeSides.length)];
-            if (random.nextInt(2) == 0) {
-                layerInd.x = index;
-                l = s.getHLayer(layerInd);
-            } else {
-                layerInd.y = index;
-                l = s.getVLayer(layerInd);
-            }
-            l.setAngle(Layer.HALFPI * dir);
-            l.angle = 0;
-            transposeCubes((int) dir, l.axis, l.index);
-            setupLayers();
-        }
-    }*/
+
+
 
     private void transposeColorSidePos(int side) {
         int[][] newSide = new int[dim][dim];
@@ -681,16 +651,7 @@ public class RubeCube {
                 activePtrId = e.getPointerId(0);
                 world.dragStart(x1, y1);
                 Vec3 coords = mRenderer.screenToWorld(getRatio(x1, y1));
-                if (!spinEnabled) break;
-                /*for (int i = 0; i < cubeSides.length; i += 1) {
-                    hitVec = cubeSides[i].getHitLoc(coords, new Vec3(0f, 0f, 1f), world.rotate);
-                    if (hitVec != null) {
-                        dragVec = hitVec;
-                        mode = SPIN;
-                        curSide = cubeSides[i];
-                        break;
-                    }
-                }*/
+
                 break;
             }
             case MotionEvent.ACTION_MOVE: {                     //trascino dito sullo schermo
@@ -707,52 +668,8 @@ public class RubeCube {
 
                     x1 = x2;
                     y1 = y2;
-                //} else if (mode == ZOOM) {
-        /*
-        float x1 = e.getX(0);
-		float x2 = e.getX(1);
-		float y1 = e.getY(0);
-		float y2 = e.getY(1);
-		float dist = (float)Math.sqrt(x1*x2 + y1*y2);
-		float distdiff = (float)Math.abs(zdist - dist);
-		if(dist > zdist && zdist > 3f) {
-		    world.scale(0.99f);
-		} else if(zdist > 5f) {
-		    world.scale(1.01f);
-		}
-		zdist = dist;
-		*/
                 }
-                /*else if (mode == SPIN && curSide != null) {
-                    Vec3 newCoords = mRenderer.screenToWorld(getRatio(x2, y2));
-                    Vec2 hp = curSide.getPlaneHitLoc(newCoords, new Vec3(0f, 0f, 1f), world.rotate);
-                    Vec2 vel = new Vec2(hp).sub(dragVec);
-                    if (curLayer == null) {
-                        dir.add(vel);
-                        float xAbs = Math.abs(dir.x);
-                        float yAbs = Math.abs(dir.y);
-                        if (xAbs > yAbs && xAbs > 0.02f) {
-                            curLayer = curSide.getHLayer(hitVec);
-                            curLayer.setType(Layer.H);
-                        } else if (yAbs > 0.02f) {
-                            curLayer = curSide.getVLayer(hitVec);
-                            curLayer.setType(Layer.V);
-                        }
-                    }
-                    dragVec = hp;
-                    // Normalize rotation velocity
-                    vel.x *= 1.3f;
-                    vel.y *= 1.3f;
-                    if (vel.x < -1f * MAX_SPIN_RATE) vel.x = -1f * MAX_SPIN_RATE;
-                    else if (vel.x > MAX_SPIN_RATE) vel.x = MAX_SPIN_RATE;
-                    if (vel.y < -1f * MAX_SPIN_RATE) vel.y = -1f * MAX_SPIN_RATE;
-                    else if (vel.y > MAX_SPIN_RATE) vel.y = MAX_SPIN_RATE;
-                    //vel.x *= world.ratio;
-                    //vel.y *= 1f / world.ratio;
-                    if (curLayer != null) {
-                        //curLayer.drag(vel, curSide.frontFace);
-                    }
-                }*/
+
                 break;
             }
             case MotionEvent.ACTION_POINTER_DOWN: {
@@ -827,19 +744,7 @@ public class RubeCube {
         }
     };
 
-    private final Runnable setWorldDim = new Runnable() {
-        public void run() {
-            world.pauseCube(true);
-            world.clear();
-            setup();
-            init();
-            //char[] prova={'w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w'};
-            //setupSides();
-            configura(configurazione);
-            world.generate();
-            world.pauseCube(false);
-        }
-    };
+
 
     public void save(SharedPreferences prefs) {
         SharedPreferences.Editor edit = prefs.edit();

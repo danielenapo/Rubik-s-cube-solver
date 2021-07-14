@@ -29,15 +29,4 @@ public class Util {
         return prefs.getBoolean(DIMENSION_SAVED, false);
     }
 
-    public static void saveTimerTime(SharedPreferences prefs, int time, boolean started) {
-        savePref(prefs, TIMER_TIME_KEY, time, TIMER_STARTED_KEY, started);
-    }
-
-    public static int getTimerTime(SharedPreferences prefs) {
-        return prefs.getInt(TIMER_TIME_KEY, 0);
-    }
-
-    public static boolean getTimerStarted(SharedPreferences prefs) {
-        return prefs.getBoolean(TIMER_STARTED_KEY, false);
-    }
 }

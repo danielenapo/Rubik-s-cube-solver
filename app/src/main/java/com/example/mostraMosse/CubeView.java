@@ -22,6 +22,8 @@ public class CubeView extends GLSurfaceView {
     CubeMenu menu;
     char [] configurazione;
 
+    static boolean stopInput= false;
+
     @Override
     public void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
@@ -105,6 +107,11 @@ public class CubeView extends GLSurfaceView {
     }
 
     public boolean onTouchEvent(final MotionEvent e) {
+        System.out.println("||||||rotatingFace|||||||| "+CubeView.stopInput);
+
+        if(CubeView.stopInput) //se c'è un'animazione in corso, non gestire gli input
+            return true;
+
         if (!menu.handleTouch(e)) {
             cube.handleTouch(e);
         }

@@ -668,7 +668,7 @@ public class RubeCube {
         // Eventually detect cube hit here
         final int action = e.getAction();
         switch (action & MotionEvent.ACTION_MASK) {
-            case MotionEvent.ACTION_DOWN: {
+            case MotionEvent.ACTION_DOWN: {                 //tocco schermo
                 if(velocityTracker == null) {
                     velocityTracker = VelocityTracker.obtain();
                 } else {
@@ -693,7 +693,7 @@ public class RubeCube {
                 }*/
                 break;
             }
-            case MotionEvent.ACTION_MOVE: {
+            case MotionEvent.ACTION_MOVE: {                     //trascino dito sullo schermo
                 velocityTracker.addMovement(e);
                 if (activePtrId < 0 || activePtrId >= e.getPointerCount()) break;
                 final int ptrInd = e.findPointerIndex(activePtrId);
@@ -926,6 +926,8 @@ public class RubeCube {
     }
 
     public void mossa(int side, int layer, int vh, boolean orario){
+        CubeView.stopInput=true;
+
         curSide = cubeSides[side];
 
         Vec2 nlinea= new Vec2();
@@ -969,6 +971,8 @@ public class RubeCube {
         }while(Math.abs(angle) <= Math.PI * 0.5);
 
         curLayer.dragEnd();
+
+        CubeView.stopInput=false;
 /////////////////////////////////////////
     }
 

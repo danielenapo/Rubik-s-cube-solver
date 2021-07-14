@@ -370,12 +370,13 @@ public class CubeMenu extends GLEnvironment {
     }
 
     public boolean handleTouch(MotionEvent e) {
+
         // Eventually detect cube hit here
         Vec2 worldCoords;
 
         final int action = e.getAction();
         switch (action & MotionEvent.ACTION_MASK) {
-            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_DOWN:       //schermo premuto
                 touchMode = SINGLE_TOUCH;
                 activePtrId = e.getPointerId(0);
                 x1 = e.getX();
@@ -385,7 +386,7 @@ public class CubeMenu extends GLEnvironment {
                     return true;
                 }*/
                 return menuView.handleActionDown(worldCoords);
-            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_UP:         //schermo rilasciato
                 resetTouch();
                 worldCoords = screenToWorld(x1, y1);
                 /*if (toggler.handleActionUp(worldCoords)) {
@@ -395,7 +396,7 @@ public class CubeMenu extends GLEnvironment {
             case MotionEvent.ACTION_CANCEL:
                 resetTouch();
                 break;
-            case MotionEvent.ACTION_MOVE:
+            case MotionEvent.ACTION_MOVE:           //movimento tra ACTION_DOWN e ACTION_UP
                 if (touchMode == SINGLE_TOUCH) {
                     final int ptrInd = e.findPointerIndex(activePtrId);
                     float x = e.getX(ptrInd);

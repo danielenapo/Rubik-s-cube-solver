@@ -80,7 +80,7 @@ public class Layer {
         }
     }
 
-    public void drag(Vec2 dir, int face) { //dir è (1.3f, 1.3f)
+    public void drag(Vec2 dir, int face) {
         float angle;
         if (face == Cube.kRight) {
             angle = ((type == H) ? dir.x : dir.y);

@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import java.util.Arrays;
 
 public class PuzzleDroidActivity extends Activity {
+
     SharedPreferences prefs;
     CubeView cubeView;
     Bundle bundle;

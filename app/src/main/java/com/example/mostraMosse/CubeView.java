@@ -110,7 +110,7 @@ public class CubeView extends GLSurfaceView {
         System.out.println("||||||rotatingFace|||||||| "+CubeView.stopInput);
 
         if(CubeView.stopInput) //se c'è un'animazione in corso, non gestire gli input
-            return true;
+            return false;
 
         if (!menu.handleTouch(e)) {
             cube.handleTouch(e);

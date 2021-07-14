@@ -88,7 +88,7 @@ public class DragThread extends Thread{
         if (axis == YAxis && type == H) angle *= -1f;
         setAngle(angle);*/
 
-
+        CubeView.stopInput=false;
     }
 
 /*

@@ -944,9 +944,9 @@ public class RubeCube {
             curLayer.setType(Layer.H);
         }
 ///////////////////////////
-        //DragThread dt= new DragThread(orario, curLayer,curSide);
-        //dt.start();
-        /////////////////////
+        DragThread dt= new DragThread(orario, curLayer,curSide);
+        dt.start();
+        /*/////////////////////
         Vec2 vel = new Vec2();
         //tieni x=y
         vel.x=0.05f; //se cambi il segno cambia verso di rotazione
@@ -973,7 +973,7 @@ public class RubeCube {
         curLayer.dragEnd();
 
         CubeView.stopInput=false;
-/////////////////////////////////////////
+/////////////////////////////////////////*/
     }
 
     public void tradMossa(String mossa, boolean forward) throws InterruptedException {

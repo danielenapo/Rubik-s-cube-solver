@@ -7,8 +7,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context=".MainActivity">
+    tools:context=".Scanner">
 
+
+    <!--opencv:show_fps="true"  per mostrare fps in alto (debug) !-->
 
     <org.opencv.android.JavaCameraView
         android:id="@+id/javaCameraView"
@@ -17,18 +19,17 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        opencv:show_fps="true"
-        opencv:camera_id="any" />
-
-    <!--opencv:show_fps="true"  per mostrare fps in alto (debug) !-->
+        app:layout_constraintVertical_bias="0.0"
+        opencv:camera_id="any"
+        opencv:show_fps="true" />
 
     <ImageButton
         android:id="@+id/saveFaceButton"
-        android:layout_width="93dp"
-        android:layout_height="66dp"
+        android:layout_width="214dp"
+        android:layout_height="110dp"
         android:layout_marginStart="619dp"
         android:layout_marginLeft="619dp"
         android:layout_marginTop="321dp"
@@ -38,8 +39,10 @@
         android:src="@android:drawable/ic_menu_camera"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.645"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.338" />
 
     <ImageButton
         android:id="@+id/undoButton"
@@ -56,6 +59,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

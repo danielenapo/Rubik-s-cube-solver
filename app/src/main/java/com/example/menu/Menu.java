@@ -1,28 +1,28 @@
-package com.example.opencvtest;
+package com.example.menu;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.mostraMosse.PuzzleDroidActivity;
+import com.example.opencvtest.Scanner;
+import com.example.opencvtest.R;
 
-public class menu extends AppCompatActivity {
-    private Button scanButton, cubeButton;
-    private Intent scanIntent, cubeIntent;
+public class Menu extends AppCompatActivity {
+    private Button scanButton, instructionsButton;
+    private Intent scanIntent, instructionsIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         scanButton= findViewById(R.id.scan_button);
-        cubeButton= findViewById(R.id.testCubo);
+        instructionsButton= findViewById(R.id.instruction_button);
 
-        scanIntent = new Intent(this, MainActivity.class);
-        cubeIntent = new Intent(this, PuzzleDroidActivity.class);
+        scanIntent = new Intent(this, Scanner.class);
+        instructionsIntent = new Intent(this, Instructions.class);
 
 
         //listener del bottone per iniziare la scannerizzazione
@@ -33,9 +33,9 @@ public class menu extends AppCompatActivity {
         });
 
         //listener del bottone per test cubo
-        cubeButton.setOnClickListener(new View.OnClickListener() {
+        instructionsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                startActivity(cubeIntent);
+                startActivity(instructionsIntent);
             }
         });
     }

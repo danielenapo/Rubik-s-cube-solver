@@ -38,7 +38,7 @@ import static org.opencv.imgproc.Imgproc.putText;
 import static org.opencv.imgproc.Imgproc.rectangle;
 
 
-public class MainActivity extends Activity implements CvCameraViewListener2 {
+public class Scanner extends Activity implements CvCameraViewListener2 {
     JavaCameraView camera;//view della fotocamera
     BaseLoaderCallback baseLoaderCallback;//bo
     Mat mRgba;//matrice dei pixel
@@ -367,7 +367,7 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
 
     //++++++++++++++++++CONTROLLA CHE CI SIA IL PERMESSO DELLA FOTOCAMERA, ALTRIMENTI LO CHIEDE ALL'UTENTE+++++++++++++++++
     private boolean permission() {
-        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(Scanner.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, 50);
         } else {
             return true;

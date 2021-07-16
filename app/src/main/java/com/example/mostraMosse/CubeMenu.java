@@ -1,11 +1,9 @@
 package com.example.mostraMosse;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.view.MotionEvent;
-import android.widget.Button;
 
-import com.example.opencvtest.MainActivity;
+import com.example.opencvtest.Scanner;
 import com.example.opencvtest.R;
 import com.threeDBJ.MGraphicsLib.GLColor;
 import com.threeDBJ.MGraphicsLib.GLEnvironment;
@@ -14,13 +12,7 @@ import com.threeDBJ.MGraphicsLib.texture.TextureButton;
 import com.threeDBJ.MGraphicsLib.texture.TextureView.TextureClickListener;
 import com.threeDBJ.MGraphicsLib.texture.TextureFont;
 
-import com.threeDBJ.MGraphicsLib.texture.TextureSlider;
-import com.threeDBJ.MGraphicsLib.texture.TextureSlider.OnValueChangedListener;
-import com.threeDBJ.MGraphicsLib.texture.TextureStateView;
-import com.threeDBJ.MGraphicsLib.texture.TextureTextView;
-import com.threeDBJ.MGraphicsLib.texture.TextureTimer;
 import com.threeDBJ.MGraphicsLib.texture.TextureView;
-import com.threeDBJ.MGraphicsLib.texture.TranslateAnimation;
 //import com.threeDBJ.puzzleDroidFree.util.Util;
 
 //import org.kociemba.twophase.Search;
@@ -169,7 +161,7 @@ public class CubeMenu extends GLEnvironment {
 
         //System.out.println("DEBUG "+Arrays.toString(tmp)+" --- "+configStr);
         long xtime= System.nanoTime();
-        String solution = MainActivity.solve(PuzzleDroidActivity.configurazione, PuzzleDroidActivity.coloriFacce);
+        String solution = Scanner.solve(PuzzleDroidActivity.configurazione, PuzzleDroidActivity.coloriFacce);
         solution = solution.replaceAll("  "," ");
         //String solution = Search.solution(configStr,21,6,false);
         //String solution = "R L F2 B' U2 R' B2 D L' D' F' U2 B2 L2 U L2 U2 F2 L2 U'";

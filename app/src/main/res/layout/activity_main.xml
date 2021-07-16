@@ -23,37 +23,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        opencv:camera_id="any"
-        opencv:show_fps="true" />
+        opencv:camera_id="any" />
 
     <ImageButton
         android:id="@+id/saveFaceButton"
-        android:layout_width="214dp"
-        android:layout_height="110dp"
-        android:layout_marginStart="619dp"
-        android:layout_marginLeft="619dp"
-        android:layout_marginTop="321dp"
-        android:layout_marginEnd="56dp"
-        android:layout_marginRight="56dp"
-        android:layout_marginBottom="39dp"
+        android:layout_width="188dp"
+        android:layout_height="102dp"
+        android:layout_marginStart="373dp"
+        android:layout_marginLeft="373dp"
+        android:layout_marginTop="179dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginRight="27dp"
+        android:layout_marginBottom="16dp"
         android:src="@android:drawable/ic_menu_camera"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.645"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.338" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageButton
         android:id="@+id/undoButton"
-        android:layout_width="108dp"
-        android:layout_height="65dp"
-        android:layout_marginStart="23dp"
-        android:layout_marginLeft="23dp"
-        android:layout_marginTop="317dp"
-        android:layout_marginEnd="600dp"
-        android:layout_marginRight="600dp"
-        android:layout_marginBottom="29dp"
+        android:layout_width="105dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="283dp"
+        android:layout_marginEnd="519dp"
+        android:layout_marginRight="519dp"
+        android:layout_marginBottom="16dp"
         android:src="@android:drawable/ic_menu_revert"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,10 +60,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
+        android:id="@+id/guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp" />
 
 

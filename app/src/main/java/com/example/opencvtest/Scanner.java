@@ -10,6 +10,7 @@ import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
+import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 
 import android.Manifest;
@@ -34,6 +35,7 @@ import com.example.mostraMosse.PuzzleDroidActivity;
 import java.util.ArrayList;
 
 import static org.opencv.core.Core.mean;
+import static org.opencv.imgproc.Imgproc.cornerHarris;
 import static org.opencv.imgproc.Imgproc.putText;
 import static org.opencv.imgproc.Imgproc.rectangle;
 
@@ -181,30 +183,7 @@ public class Scanner extends Activity implements CvCameraViewListener2 {
             Square s = squares.get(i);
             textDrawPoint = new Point(s.getCenter().x-100,s.getCenter().y);
             textFaceIndex= new Point(100, 100); //stampa il contatore della faccia in alto a sx;
-            Scalar showColor;
-            switch (s.getColor()){
-                case "R":
-                    showColor=new Scalar(255,0,0);
-                    break;
-                case "G":
-                    showColor=new Scalar(0,255,0);
-                    break;
-                case "B":
-                    showColor=new Scalar(0,0,255);
-                    break;
-                case "Y":
-                    showColor=new Scalar(255,255,0);
-                    break;
-                case "O":
-                    showColor=new Scalar(255,165,0);
-                    break;
-                case "W":
-                    showColor=new Scalar(255,255,255);
-                    break;
-                default: //case "n"
-                    showColor=new Scalar(0,0,0);
-                    break;
-            }
+            Scalar showColor=charToRGB(s.getColor());
             rectangle(mRgba,  s.getTopLeftPoint(), s.getBottomRightPoint(), showColor, thicknessRect);
             putText(mRgba,s.getColor(),textDrawPoint,1,6,colorText,8);
             putText(mRgba, "Face "+(index+2), textFaceIndex, 1, 6, colorText, 8 );
@@ -220,8 +199,24 @@ public class Scanner extends Activity implements CvCameraViewListener2 {
                     putText(mRgba, "down + down", arrowDrawPoint, 1, 4, colorText, 7);
             }
         }
+
+        if(index>=0) //disegno l'ultima faccia scannerizzata (dalla seconda mossa in poi)
+            drawLastFace();
     }
 
+    //++++++++++++++++++++++DISEGNA L'ULTIMA FACCIA SCANNERIZZATA SULLO SCHERMO++++++++++++++++++++++
+    void drawLastFace(){
+        Point tmpPoint;
+        int layoutDistance=55;
+        int width=50;
+        Point tempCenter = new Point(mRgba.width() -300, (mRgba.height() / 2)-100); //centro della faccia cche disegno (in centro a dx)
+
+        for(int i=0; i<9; i++) {
+            tmpPoint = new Point(squareLocations[i].x * layoutDistance + tempCenter.x, squareLocations[i].y * layoutDistance + tempCenter.y);
+            Scalar showColor=charToRGB(faces[index].substring(i,i+1));
+            rectangle(mRgba,new Rect((int)tmpPoint.x, (int)tmpPoint.y, width, width), showColor, -1);
+        }
+    }
 
     //++++++++++++++++++++++funzione che salva nel vettore faces la faccia corrente, quando viene cliccato il pulsante++++++++++++++++++
     public void saveFace(){
@@ -351,6 +346,33 @@ public class Scanner extends Activity implements CvCameraViewListener2 {
         return result;
     }
 
+    Scalar charToRGB(String color){
+        Scalar showColor;
+        switch (color){
+            case "R":
+                showColor=new Scalar(255,0,0);
+                break;
+            case "G":
+                showColor=new Scalar(0,255,0);
+                break;
+            case "B":
+                showColor=new Scalar(0,0,255);
+                break;
+            case "Y":
+                showColor=new Scalar(255,255,0);
+                break;
+            case "O":
+                showColor=new Scalar(255,165,0);
+                break;
+            case "W":
+                showColor=new Scalar(255,255,255);
+                break;
+            default: //case "n"
+                showColor=new Scalar(0,0,0);
+                break;
+        }
+        return showColor;
+    }
     //++++++++++++++++++++++++++++++INIZIALIZZAZIONE OPENCV++++++++++++++++++++++++++
     @Override
     public void onResume() {

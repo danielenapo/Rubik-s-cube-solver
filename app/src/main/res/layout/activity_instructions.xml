@@ -7,7 +7,7 @@
     tools:context="com.example.menu.Instructions">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textId"
         android:layout_width="360dp"
         android:layout_height="593dp"
         android:layout_marginStart="25dp"
@@ -16,7 +16,6 @@
         android:layout_marginEnd="26dp"
         android:layout_marginRight="26dp"
         android:layout_marginBottom="40dp"
-        android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

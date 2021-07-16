@@ -163,6 +163,7 @@ public class CubeMenu extends GLEnvironment {
         long xtime= System.nanoTime();
         String solution = Scanner.solve(PuzzleDroidActivity.configurazione, PuzzleDroidActivity.coloriFacce);
         solution = solution.replaceAll("  "," ");
+        solution = RubeCube.replaceDoubleMove(solution);
         //String solution = Search.solution(configStr,21,6,false);
         //String solution = "R L F2 B' U2 R' B2 D L' D' F' U2 B2 L2 U L2 U2 F2 L2 U'";
         System.out.println("|||||| TEMPO calcolo soluzione: "+ (System.nanoTime()-xtime));

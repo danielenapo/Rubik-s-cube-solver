@@ -12,6 +12,7 @@ import com.threeDBJ.MGraphicsLib.math.Quaternion;
 import com.threeDBJ.MGraphicsLib.math.Vec2;
 import com.threeDBJ.MGraphicsLib.math.Vec3;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Vector;
 
@@ -891,11 +892,12 @@ public class RubeCube {
             case "L'":
                 mossa(Cube.kFront,0,Layer.V,!forward);
                 break;
-            case "L2":
+            /*case "L2":
                 mossa(Cube.kFront,0,Layer.V,forward);
                 Thread.sleep(500);
                 mossa(Cube.kFront,0,Layer.V,forward);
                 break;
+             */
             case "R":
                 forward=!forward;
                 mossa(Cube.kFront,2,Layer.V,forward);
@@ -904,12 +906,13 @@ public class RubeCube {
                 forward=!forward;
                 mossa(Cube.kFront,2,Layer.V,!forward);
                 break;
-            case "R2":
+            /*case "R2":
                 forward=!forward;
                 mossa(Cube.kFront,2,Layer.V,forward);
                 Thread.sleep(500);
                 mossa(Cube.kFront,2,Layer.V,forward);
                 break;
+             */
 
             case "U":
                 forward=!forward;
@@ -919,23 +922,25 @@ public class RubeCube {
                 forward=!forward;
                 mossa(Cube.kFront,0,Layer.H,!forward);
                 break;
-            case "U2":
+            /*case "U2":
                 forward=!forward;
                 mossa(Cube.kFront,0,Layer.H,forward);
                 Thread.sleep(500);
                 mossa(Cube.kFront,0,Layer.H,forward);
                 break;
+             */
             case "D":
                 mossa(Cube.kFront,2,Layer.H,forward);
                 break;
             case "D'":
                 mossa(Cube.kFront,2,Layer.H,!forward);
                 break;
-            case "D2":
+            /*case "D2":
                 mossa(Cube.kFront,2,Layer.H,forward);
                 Thread.sleep(500);
                 mossa(Cube.kFront,2,Layer.H,forward);
                 break;
+             */
 
             case "F":
                 forward=!forward;
@@ -945,26 +950,55 @@ public class RubeCube {
                 forward=!forward;
                 mossa(Cube.kLeft,2,Layer.V,!forward);
                 break;
-            case "F2":
+            /*case "F2":
                 forward=!forward;
                 mossa(Cube.kLeft,2,Layer.V,forward);
                 Thread.sleep(500);
                 mossa(Cube.kLeft,2,Layer.V,forward);
                 break;
+             */
             case "B":
                 mossa(Cube.kLeft,0,Layer.V,forward);
                 break;
             case "B'":
                 mossa(Cube.kLeft,0,Layer.V,!forward);
                 break;
-            case "B2":
+            /*case "B2":
                 mossa(Cube.kLeft,0,Layer.V,forward);
                 Thread.sleep(500);
                 mossa(Cube.kLeft,0,Layer.V,forward);
                 break;
-
+            */
         }
     }
 
+    public static String replaceDoubleMove(String solution){
+        String strOut;
+        char mossa;
+        //System.out.println("|||DEBUG||| soluzione0: "+solution);
+        //trovo gli indici dei "2"
+        int lastIndex = 0;
+        //ArrayList<Integer> result = new ArrayList<Integer>();
+        while(lastIndex != -1) {
+
+            lastIndex = solution.indexOf("2",lastIndex);
+
+            if(lastIndex != -1){
+                //sostituisco le mosse doppie con la stessa mossa singola ripetuta due volte
+                //result.add(lastIndex);
+                mossa=solution.charAt(lastIndex-1);
+                //System.out.println("|||DEBUG||| indice 2: "+lastIndex);
+                solution = solution.substring(0, lastIndex) +" "+ mossa+ solution.substring(lastIndex + 1);
+                //System.out.println("|||DEBUG||| soluzioneCur: "+solution);
+                lastIndex += 2;
+            }
+        }
+
+
+
+
+
+        return solution;
+    }
 
 }

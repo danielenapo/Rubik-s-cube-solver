@@ -850,8 +850,11 @@ public class RubeCube {
             curLayer.setType(Layer.H);
         }
 ///////////////////////////
-        DragThread dt= new DragThread(orario, curLayer,curSide);
+        DragThread dt= new DragThread(this, orario, curLayer,curSide);
         dt.start();
+
+
+
         /*/////////////////////
         Vec2 vel = new Vec2();
         //tieni x=y
@@ -881,6 +884,8 @@ public class RubeCube {
         CubeView.stopInput=false;
 /////////////////////////////////////////*/
     }
+
+
 
     public void tradMossa(String mossa, boolean forward) throws InterruptedException {
 

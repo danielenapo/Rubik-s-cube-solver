@@ -13,8 +13,12 @@ public class DragThread extends Thread{
     private  boolean orario;
     private Layer curLayer;
     private CubeSide curSide;
+    private RubeCube cube;
 
-    public DragThread(boolean orario, Layer curLayer, CubeSide curSide) {
+    //private boolean threadFinito=false;
+
+    public DragThread(RubeCube cube,boolean orario, Layer curLayer, CubeSide curSide) {
+        this.cube=cube;
         this.orario = orario;
         this.curLayer = curLayer;
         this.curSide = curSide;
@@ -47,8 +51,24 @@ public class DragThread extends Thread{
         }while(Math.abs(angle) <= Math.PI * 0.5);
 
         curLayer.dragEnd();
+        //curLayer.animate();
+        //setThreadFinito(true);
 
+        cube.animate();
+
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         CubeView.stopInput=false;
     }
+/*
+    public boolean isThreadFinito() {
+        return threadFinito;
+    }
 
+    public void setThreadFinito(boolean threadFinito) {
+        this.threadFinito = threadFinito;
+    }*/
 }

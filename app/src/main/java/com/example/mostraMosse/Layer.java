@@ -111,6 +111,7 @@ public class Layer {
         }
         fixInd = 0;
         cube.spinEnabled(false);
+
     }
 
     public void setAngle(float angle) {

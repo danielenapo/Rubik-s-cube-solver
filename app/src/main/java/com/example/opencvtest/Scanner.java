@@ -30,6 +30,7 @@ import android.widget.ImageButton;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.menu.Instructions;
 import com.example.mostraMosse.PuzzleDroidActivity;
 
 import java.util.ArrayList;
@@ -58,6 +59,8 @@ public class Scanner extends Activity implements CvCameraViewListener2 {
     private String[] faces; //array delle facce
     private ImageButton saveFaceButton; //bottone per salvare la faccia
     private ImageButton undoButton; //bottone per annullare l'ultima faccia scannerizzata
+    private ImageButton instructionsButton; //bottone per aprire le istruzioni
+    private Intent instructionsIntent; //intent per andare all'activity delle istruzioni
     private int index=-1; //indice che tiene traccia delle facce scansionate
     private char[] sides =new char[6];
     private Intent cubeIntent;
@@ -73,6 +76,8 @@ public class Scanner extends Activity implements CvCameraViewListener2 {
         setContentView(R.layout.activity_main);
         saveFaceButton =findViewById(R.id.saveFaceButton);
         undoButton=findViewById(R.id.undoButton);
+        instructionsButton=findViewById(R.id.instructions_button);
+        instructionsIntent=new Intent(this, Instructions.class);
         faces = new String[6]; //ci sono 6 facce
         cubeIntent = new Intent(this, PuzzleDroidActivity.class);
 
@@ -118,6 +123,13 @@ public class Scanner extends Activity implements CvCameraViewListener2 {
             public void onClick(View v) {
                 if(index>=0)
                     index--;
+            }
+        });
+
+        //listener del bottone per istruzioni
+        instructionsButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(instructionsIntent);
             }
         });
     }

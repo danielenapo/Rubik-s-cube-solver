@@ -32,7 +32,7 @@ public class Menu extends AppCompatActivity {
             }
         });
 
-        //listener del bottone per test cubo
+        //listener del bottone per istruzioni
         instructionsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startActivity(instructionsIntent);

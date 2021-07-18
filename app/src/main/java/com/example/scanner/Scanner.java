@@ -1,4 +1,4 @@
-package com.example.opencvtest;
+package com.example.scanner;
 
 import cs.min2phase.Search;
 
@@ -36,38 +36,42 @@ import com.example.mostraMosse.PuzzleDroidActivity;
 import java.util.ArrayList;
 
 import static org.opencv.core.Core.mean;
+import static org.opencv.imgproc.Imgproc.FONT_HERSHEY_SIMPLEX;
 import static org.opencv.imgproc.Imgproc.cornerHarris;
 import static org.opencv.imgproc.Imgproc.putText;
 import static org.opencv.imgproc.Imgproc.rectangle;
 
 
 public class Scanner extends Activity implements CvCameraViewListener2 {
-    JavaCameraView camera;//view della fotocamera
-    BaseLoaderCallback baseLoaderCallback;//bo
-    Mat mRgba;//matrice dei pixel
-    //COORDINATE QUADRATO
-    int thicknessRect=13, sizeRect=125;
-    ArrayList<Square> squares; //lista dei 9 quadrati da stampare su schermo
+    //PARAMETRI OPENCV
+    private JavaCameraView camera;//view della fotocamera
+    private BaseLoaderCallback baseLoaderCallback;//bo
+    private Mat mRgba;//matrice dei pixel
+    private Point textDrawPoint, arrowDrawPoint, textFaceIndex; //coordinate del punto di origine del testo e della freccia direzionale
+    private Scalar colorText = new Scalar(0,0,0,255); //colore dei testi
+    private Scalar colorTextBorder = new Scalar(255,255,255,255); //colore del bordo dei testi
+    private int font=FONT_HERSHEY_SIMPLEX;//font da usare su putText di opencv
+
+    //PARAMETRI ANDROID (bottoni e intent)
+    private ImageButton saveFaceButton; //bottone per salvare la faccia
+    private ImageButton undoButton; //bottone per annullare l'ultima faccia scannerizzata
+    private ImageButton instructionsButton; //bottone per aprire le istruzioni
+    private Intent instructionsIntent; //intent per andare all'activity delle istruzioni
+    private Intent cubeIntent;
+
+    //PARAMETRI QUADRATI (Square) e altre variabili
+    private int thicknessRect=13, sizeRect=125;
+    private ArrayList<Square> squares; //lista dei 9 quadrati da stampare su schermo
     private int squareLayoutDistance = 200; //distanza tra l'origine di un quadrato e un altro
     //array che indica come sono disposti i 9 quadrati
     private Point[] squareLocations = {
             new Point(-1,-1),new Point(0,-1),new Point(1,-1),
             new Point(-1,0),new Point(0,0),new Point(1,0),
             new Point(-1,1),new Point(0,1),new Point(1,1)};
-    Point textDrawPoint, arrowDrawPoint, textFaceIndex; //coordinate del punto di origine del testo e della freccia direzionale
-    Scalar colorText = new Scalar(153,50,204,255); //colore dei testi
     private String[] faces; //array delle facce
-    private ImageButton saveFaceButton; //bottone per salvare la faccia
-    private ImageButton undoButton; //bottone per annullare l'ultima faccia scannerizzata
-    private ImageButton instructionsButton; //bottone per aprire le istruzioni
-    private Intent instructionsIntent; //intent per andare all'activity delle istruzioni
     private int index=-1; //indice che tiene traccia delle facce scansionate
     private char[] sides =new char[6];
-    private Intent cubeIntent;
-    long timeOffset;
-
-
-
+    private long timeOffset; //per impostare un ritardo di 200ms nella lettura dei colori (per stabilizzare la lettura)
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -93,13 +97,13 @@ public class Scanner extends Activity implements CvCameraViewListener2 {
                 public void onManagerConnected(int status) {
                     switch (status) {
                         case LoaderCallbackInterface.SUCCESS: {
-                            Log.d("OPENCV","SIIIII");
+                            Log.d("OPENCV","OPENCV loaded successfully");
                             camera.enableView(); //attivo la fotocamera se tutto è andato bene
                         }
                         break;
                         default: {
                             super.onManagerConnected(status);
-                            Log.d("OPENCV","NOOOO");
+                            Log.d("OPENCV","OPENCV not loaded");
                         }
                         break;
                     }
@@ -177,7 +181,7 @@ public class Scanner extends Activity implements CvCameraViewListener2 {
         return mRgba;
     }
 
-    //++++++++++++++++++funzione che controlla il colore+++++++++++++++++++
+    //++++++++++++++++++ FUNZIONE CHE OTTIENE IL COLORE DI TUTTI I QUADRATI con metodo getColor() di Square ++++++++++++++++++++++++++++++++++++++
     private void processColor() {
         Scalar tmpColor;
         for(Square s : squares) {
@@ -189,29 +193,46 @@ public class Scanner extends Activity implements CvCameraViewListener2 {
 
     }
 
-    //funzione che disegna i quadrati e le scritte
+    //++++++++++++++++++++++++++++++DISEGNA I QUADRATI E IL TESTO SULL'IMMAGINE++++++++++++++++++++++++++++++++++++++++
     private void drawSquares(){
+        //QUADRATI
         for (int i = 0; i < squares.size(); i++) {
             Square s = squares.get(i);
-            textDrawPoint = new Point(s.getCenter().x-100,s.getCenter().y);
-            textFaceIndex= new Point(100, 100); //stampa il contatore della faccia in alto a sx;
-            Scalar showColor=charToRGB(s.getColor());
-            rectangle(mRgba,  s.getTopLeftPoint(), s.getBottomRightPoint(), showColor, thicknessRect);
+            Scalar showColor = charToRGB(s.getColor());
+            rectangle(mRgba, s.getTopLeftPoint(), s.getBottomRightPoint(), showColor, thicknessRect);
+            //textDrawPoint = new Point(s.getCenter().x - 100, s.getCenter().y); //per lettera del colore (debug)
             //putText(mRgba,s.getColor(),textDrawPoint,1,6,colorText,8);
-            putText(mRgba, "Face "+(index+2), textFaceIndex, 1, 6, colorText, 8 );
-
-            //stampo la freccia solop se non è la prima scannerizzazione
-            if(index>=0) {
-                arrowDrawPoint = new Point(100, mRgba.height() - 300);
-                if (index<3)
-                    putText(mRgba, "right", arrowDrawPoint, 1, 4, colorText, 7);
-                else if(index==3)
-                    putText(mRgba, "right + up", arrowDrawPoint, 1, 4, colorText, 7);
-                else if(index==4)
-                    putText(mRgba, "down + down", arrowDrawPoint, 1, 4, colorText, 7);
-            }
         }
 
+        //TESTO
+        textFaceIndex = new Point(80, 150); //stampa il contatore della faccia in alto a sx;
+        putText(mRgba, "Face "+(index+2), textFaceIndex, font, 5,colorTextBorder, 12 );
+        putText(mRgba, "Face "+(index+2), textFaceIndex, font, 5, colorText, 8 ); //testo indice faccia
+
+        //stampo la direzione in cui girare
+        arrowDrawPoint = new Point(80, mRgba.height() - 300);
+        if(index==-1){
+            putText(mRgba, "Any face", arrowDrawPoint, font, 2, colorTextBorder, 10);
+            putText(mRgba, "Any face", arrowDrawPoint, font, 2, colorText, 5);
+        }
+        if (index<3 && index>=0) {
+            putText(mRgba, "Right", arrowDrawPoint, font, 2, colorTextBorder, 10);
+            putText(mRgba, "Right", arrowDrawPoint, font, 2, colorText, 5);
+        }
+        else if(index==3) {
+            putText(mRgba, "Right + up", arrowDrawPoint, font, 2, colorTextBorder, 10);
+            putText(mRgba, "Right + up", arrowDrawPoint, font, 2, colorText, 5);
+        }
+        else if(index==4) {
+            putText(mRgba, "Down + down", arrowDrawPoint, font, 2, colorTextBorder, 10);
+            putText(mRgba, "Down + down", arrowDrawPoint, font, 2, colorText, 5);
+        }
+        else {
+
+        }
+
+
+        //ULTIMA FACCIA
         if(index>=0) //disegno l'ultima faccia scannerizzata (dalla seconda mossa in poi)
             drawLastFace();
     }
@@ -221,7 +242,7 @@ public class Scanner extends Activity implements CvCameraViewListener2 {
         Point tmpPoint;
         int layoutDistance=55;
         int width=50;
-        Point tempCenter = new Point(mRgba.width() -300, (mRgba.height() / 2)-100); //centro della faccia cche disegno (in centro a dx)
+        Point tempCenter = new Point(mRgba.width() -200, 200); //centro della faccia cche disegno (in centro a dx)
 
         for(int i=0; i<9; i++) {
             tmpPoint = new Point(squareLocations[i].x * layoutDistance + tempCenter.x, squareLocations[i].y * layoutDistance + tempCenter.y);
@@ -359,6 +380,7 @@ public class Scanner extends Activity implements CvCameraViewListener2 {
         return result;
     }
 
+    //++++++++++++++++++++++++++++++ TRASFORMA IL CARATTERE CHE RAPPRESENTA IL COLORE IN Scalar (VALORI RGB) +++++++++++
     Scalar charToRGB(String color){
         Scalar showColor;
         switch (color){
@@ -386,6 +408,7 @@ public class Scanner extends Activity implements CvCameraViewListener2 {
         }
         return showColor;
     }
+
     //++++++++++++++++++++++++++++++INIZIALIZZAZIONE OPENCV++++++++++++++++++++++++++
     @Override
     public void onResume() {

@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.opencvtest.Scanner;
-import com.example.opencvtest.R;
+import com.example.scanner.Scanner;
+import com.example.scanner.R;
 
 public class Menu extends AppCompatActivity {
     private Button scanButton, instructionsButton;

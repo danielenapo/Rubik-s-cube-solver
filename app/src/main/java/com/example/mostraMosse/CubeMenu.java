@@ -3,8 +3,8 @@ package com.example.mostraMosse;
 import android.content.Context;
 import android.view.MotionEvent;
 
-import com.example.opencvtest.Scanner;
-import com.example.opencvtest.R;
+import com.example.scanner.Scanner;
+import com.example.scanner.R;
 import com.threeDBJ.MGraphicsLib.GLColor;
 import com.threeDBJ.MGraphicsLib.GLEnvironment;
 import com.threeDBJ.MGraphicsLib.math.Vec2;

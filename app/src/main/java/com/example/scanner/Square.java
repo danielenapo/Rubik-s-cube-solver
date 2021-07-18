@@ -1,4 +1,4 @@
-package com.example.opencvtest;
+package com.example.scanner;
 
 import org.opencv.core.Point;
 import org.opencv.core.Rect;

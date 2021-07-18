@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.opencvtest">
+    package="com.example.scanner">
     <!-- RICHIESTE PERMESSI! -->
     <uses-permission android:name="android.permission.CAMERA" />
 
@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Scanner"
+            android:name="com.example.scanner.Scanner"
             android:screenOrientation="landscape"> <!-- per indicare che l'app deve essere in orizzontale ! -->
         </activity>
         <activity

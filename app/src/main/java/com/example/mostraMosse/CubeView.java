@@ -5,10 +5,9 @@ import android.content.SharedPreferences;
 import android.opengl.GLSurfaceView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.Button;
 
 import com.example.mostraMosse.util.Util;
-import com.example.opencvtest.R;
+import com.example.scanner.R;
 import com.threeDBJ.MGraphicsLib.texture.TextureFont;
 
 import timber.log.Timber;

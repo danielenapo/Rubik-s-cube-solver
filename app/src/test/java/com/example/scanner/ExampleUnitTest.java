@@ -1,4 +1,4 @@
-package com.example.opencvtest;
+package com.example.scanner;
 
 import org.junit.Test;
 

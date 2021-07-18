@@ -6,7 +6,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.example.opencvtest.R;
+import com.example.scanner.R;
 
 public class Instructions extends AppCompatActivity {
     private TextView text;

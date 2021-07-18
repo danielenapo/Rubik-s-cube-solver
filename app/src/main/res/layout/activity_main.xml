@@ -26,9 +26,11 @@
         opencv:camera_id="any" />
 
     <ImageButton
+        android:scaleType="fitCenter"
         android:id="@+id/saveFaceButton"
-        android:layout_width="188dp"
-        android:layout_height="102dp"
+        android:background="@drawable/roundcorner"
+        android:layout_width="156dp"
+        android:layout_height="123dp"
         android:layout_marginStart="373dp"
         android:layout_marginLeft="373dp"
         android:layout_marginTop="179dp"
@@ -42,8 +44,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
+    <!--android:background="#03A9F4"
+    android:scaleType="centerInside"
+        android:scaleType="fitXY"!-->
+
 
     <ImageButton
+        android:scaleType="fitCenter"
         android:id="@+id/undoButton"
         android:layout_width="105dp"
         android:layout_height="61dp"
@@ -54,6 +61,7 @@
         android:layout_marginRight="519dp"
         android:layout_marginBottom="16dp"
         android:src="@android:drawable/ic_menu_revert"
+        android:background="@drawable/roundcorner"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,6 +75,7 @@
         app:layout_constraintGuide_begin="20dp" />
 
     <ImageButton
+        android:scaleType="fitCenter"
         android:id="@+id/instructions_button"
         android:layout_width="58dp"
         android:layout_height="53dp"
@@ -76,6 +85,7 @@
         android:layout_marginEnd="339dp"
         android:layout_marginRight="339dp"
         android:layout_marginBottom="44dp"
+        android:background="@drawable/roundcorner"
         android:src="@android:drawable/ic_menu_info_details"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

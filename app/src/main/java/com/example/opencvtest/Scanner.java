@@ -240,10 +240,11 @@ public class Scanner extends Activity implements CvCameraViewListener2 {
         }
 
 
-        //se si è riuscito a leggere correttamente il colore del quadrato centrale
-        if( tempString.charAt(4)!='n') {
-            index++;
+        //se non si è riuscito a leggere correttamente il quadrato, annullo la scannerizzazione
+        if( tempString.contains("n")) {
+            return;
         }
+        index++; //altrimenti incremento index e continuo a scannerizzare
         sides[index]=tempString.charAt(4);
 
 

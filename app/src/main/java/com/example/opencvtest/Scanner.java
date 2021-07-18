@@ -197,7 +197,7 @@ public class Scanner extends Activity implements CvCameraViewListener2 {
             textFaceIndex= new Point(100, 100); //stampa il contatore della faccia in alto a sx;
             Scalar showColor=charToRGB(s.getColor());
             rectangle(mRgba,  s.getTopLeftPoint(), s.getBottomRightPoint(), showColor, thicknessRect);
-            putText(mRgba,s.getColor(),textDrawPoint,1,6,colorText,8);
+            //putText(mRgba,s.getColor(),textDrawPoint,1,6,colorText,8);
             putText(mRgba, "Face "+(index+2), textFaceIndex, 1, 6, colorText, 8 );
 
             //stampo la freccia solop se non è la prima scannerizzazione
@@ -260,7 +260,7 @@ public class Scanner extends Activity implements CvCameraViewListener2 {
                 sol = "Cube already solved!";
                 new AlertDialog.Builder(this)
                         .setTitle("ERROR")
-                        .setMessage(sol+"\nScan correctly to continue.")
+                        .setMessage(sol+"\nScramble the cube and scan again.")
                         .setPositiveButton(android.R.string.yes, null)
                         .show();
                 index=-1;
@@ -294,7 +294,7 @@ public class Scanner extends Activity implements CvCameraViewListener2 {
                 }
                 new AlertDialog.Builder(this)
                         .setTitle("ERROR")
-                        .setMessage(sol+"\nScan correctly to continue.")
+                        .setMessage(sol+"\nBe sure to be in proper light conditions.\nScan again to continue.")
                         .setPositiveButton(android.R.string.yes, null)
                         .show();
                 index=-1;

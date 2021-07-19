@@ -6,7 +6,6 @@ import android.view.MotionEvent;
 import android.view.VelocityTracker;
 
 
-import com.example.mostraMosse.util.Util;
 import com.threeDBJ.MGraphicsLib.GLColor;
 import com.threeDBJ.MGraphicsLib.math.Quaternion;
 import com.threeDBJ.MGraphicsLib.math.Vec2;
@@ -41,7 +40,6 @@ public class RubeCube {
     //private boolean doDrag2=true;
 
     // for random cube movements
-    private final Random random = new Random(System.currentTimeMillis());
 
     private float x1 = 0, y1 = 0, cubeSize, space;
 
@@ -184,7 +182,7 @@ public class RubeCube {
         }
     }
 
-    void setupSides() {         //disegna facce con colori default (cubo completato)
+    void setupSides() {         //disegna facce con colori default (cubo completato) se chiamato all'inizio, e rende possibile la conservazione della configurazione corrente
         int i, j, k;
         // Paint back
         i = 0;
@@ -763,30 +761,32 @@ public class RubeCube {
         edit.putFloat("Ry", rotation.y);
         edit.putFloat("Rz", rotation.z);
         edit.putFloat("Rw", rotation.w);
+
+        edit.putBoolean("isConfigSaved",true);
         edit.apply();
-        Util.saveDimension(prefs, dim);
+
     }
+
 
     public void restore(SharedPreferences prefs) {
         int i, j, k;
-        int colorSum = 0;
+        //int colorSum = 0;
         for (i = 0; i < faceColors.length; i += 1) {
             for (j = 0; j < dim; j += 1) {
                 for (k = 0; k < dim; k += 1) {
                     int color = prefs.getInt(i + "" + j + "" + k, i);
                     faceColors[i][j][k] = color;
-                    colorSum += color;
+                    //colorSum += color;
                 }
             }
             Timber.d("Restore color %d00 %d", i, faceColors[i][0][0]);
         }
-        if(colorSum == 0) {
-            // TODO -- this is a hack, figure out why prefs get deleted sometimes
+        /*if(colorSum == 0) {
             initSideColors();
-        }
+        }*/
         //char[] prova={'w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w'};
-        //setupSides();
-        configura(configurazione);
+        setupSides();
+        //configura(configurazione);
         Quaternion rotation = new Quaternion(prefs.getFloat("Rx", 0f), prefs.getFloat("Ry", 0f),
                 prefs.getFloat("Rz", 0f), prefs.getFloat("Rw", 0f));
         world.rotateBy(rotation);

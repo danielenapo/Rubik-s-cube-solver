@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
 
-import com.example.mostraMosse.util.Util;
+//import com.example.mostraMosse.util.Util;
 import com.threeDBJ.MGraphicsLib.math.Vec3;
 import com.threeDBJ.MGraphicsLib.texture.TextureFont;
 import javax.microedition.khronos.egl.EGLConfig;
@@ -45,7 +45,17 @@ public class CubeRenderer implements GLSurfaceView.Renderer {
         this.prefs = prefs;
         this.configurazione=rCube.getConfigurazione();
     }
-
+/*
+    public CubeRenderer(Context context, TextureFont font, GLWorld world,
+                        RubeCube rCube, CubeMenu menu) {
+        this.world = world;
+        this.menu = menu;
+        this.cube = rCube;
+        this.context = context;
+        textureFont = font;
+        this.configurazione=rCube.getConfigurazione();
+    }
+*/
 
 
     @Override
@@ -68,22 +78,33 @@ public class CubeRenderer implements GLSurfaceView.Renderer {
         menu.init(gl, context);
         textureFont.init(gl, context);
 
-        System.out.println("||||||GATTO"+Util.dimensionSaved(prefs));
-        if (Util.dimensionSaved(prefs)) {
+        /*if (Util.dimensionSaved(prefs)) {
             cube.init();
             //menu.setRestore(prefs);
             Timber.d("Restoring sides");
             cube.restore(prefs);
-        } else {
-            Timber.d("Initializing sides");
-            cube.init();
-            //char[] prova={'w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w'};
-            //cube.setupSides();
-            //cube.configura(prova);
+        } else {*/
+
+        cube.init();
+        //char[] prova={'w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w'};
+        //cube.setupSides();
+        //cube.configura(prova);
+        //Timber.d("Prefs saved? "+prefs.getBoolean("isConfigSaved", false));
+        if(prefs.getBoolean("isConfigSaved", false)){ //se ho memorizzato la configurazione
+            //Timber.d("Restoring sides");
+            System.out.println("Restoring sides e iterator su listaMosse");
+            cube.restore(prefs);
+            menu.restore(prefs);
+        }
+        else{
+            //Timber.d("Initializing sides");
+            System.out.println("Initializing sides");
             cube.configura(configurazione);
+        }
+
             //System.out.println("GATTO"+Arrays.toString(configurazione));
             //cube.configura(prova);
-        }
+        //}
         cube.world.generate();
         world.setRubeCube(cube);
         GLDataLoaded = true;

@@ -6,7 +6,6 @@ import android.opengl.GLSurfaceView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-import com.example.mostraMosse.util.Util;
 import com.example.scanner.R;
 import com.threeDBJ.MGraphicsLib.texture.TextureFont;
 
@@ -55,10 +54,11 @@ public class CubeView extends GLSurfaceView {
         this.configurazione=configurazione;
     }
 
+
     public void initialize(SharedPreferences prefs) {
         //long xtime= System.nanoTime();
 
-        cube = new RubeCube(world, Util.getDimension(prefs),configurazione);
+        cube = new RubeCube(world, 3,configurazione);
         //System.out.println("||||TEMPO initialize RubeCube "+ (System.nanoTime()-xtime));
 
         //xtime= System.nanoTime();
@@ -82,19 +82,50 @@ public class CubeView extends GLSurfaceView {
         //System.out.println("TEMPO initialize render"+ (System.nanoTime()-xtime));
 
     }
+/*
+    public void initialize() {
+        //long xtime= System.nanoTime();
+
+        cube = new RubeCube(world, 3,configurazione);
+        //System.out.println("||||TEMPO initialize RubeCube "+ (System.nanoTime()-xtime));
+
+        //xtime= System.nanoTime();
+        menu = new CubeMenu(cube, font);
+        //System.out.println("||||TEMPO initialize CubeMenu "+ (System.nanoTime()-xtime));
+
+        //xtime= System.nanoTime();
+        //renderer = new CubeRenderer(getContext(), font, world, cube, menu, prefs);
+        renderer = new CubeRenderer(getContext(), font, world, cube, menu);
+        //System.out.println("||||TEMPO initialize CubeRender "+ (System.nanoTime()-xtime));
+
+        //xtime= System.nanoTime();
+        cube.setRenderer(renderer);
+        //System.out.println("||||TEMPO initialize setRender "+ (System.nanoTime()-xtime));
+
+        //xtime= System.nanoTime();
+        world.setRubeCube(cube);
+        //System.out.println("||||TEMPO initialize setRubeCube "+ (System.nanoTime()-xtime));
+
+        //xtime= System.nanoTime();
+        setRenderer(renderer);
+        //System.out.println("TEMPO initialize render"+ (System.nanoTime()-xtime));
+
+    }
+
+ */
 
     public void save(SharedPreferences prefs) {
-        cube.save(prefs);
-        //menu.save(prefs);
+        cube.save(prefs); //salva la configurazione corrente del cubo
+        menu.save(prefs); //salva l'iteratore per la lista delle mosse
         //menu.timer.stop();
     }
 
+
     public void restore(SharedPreferences prefs) {
-        /*if (Util.getTimerStarted(prefs) && renderer.GLDataLoaded) {
-            menu.timer.start();
-        }*/
+        //menu.restore(prefs);
     }
 
+/*
     @Override
     public void onPause() {
         //niente
@@ -104,7 +135,7 @@ public class CubeView extends GLSurfaceView {
     public void onResume() {
         //niente
     }
-
+*/
     public boolean onTouchEvent(final MotionEvent e) {
         System.out.println("||||||rotatingFace|||||||| "+CubeView.stopInput);
 

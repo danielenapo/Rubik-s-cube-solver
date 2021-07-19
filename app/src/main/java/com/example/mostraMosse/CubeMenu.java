@@ -1,18 +1,21 @@
 package com.example.mostraMosse;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.MotionEvent;
 
 import com.example.scanner.Scanner;
 import com.example.scanner.R;
 import com.threeDBJ.MGraphicsLib.GLColor;
 import com.threeDBJ.MGraphicsLib.GLEnvironment;
+import com.threeDBJ.MGraphicsLib.math.Quaternion;
 import com.threeDBJ.MGraphicsLib.math.Vec2;
 import com.threeDBJ.MGraphicsLib.texture.TextureButton;
 import com.threeDBJ.MGraphicsLib.texture.TextureView.TextureClickListener;
 import com.threeDBJ.MGraphicsLib.texture.TextureFont;
 
 import com.threeDBJ.MGraphicsLib.texture.TextureView;
+import com.google.gson.*;
 //import com.threeDBJ.puzzleDroidFree.util.Util;
 
 //import org.kociemba.twophase.Search;
@@ -44,13 +47,13 @@ public class CubeMenu extends GLEnvironment {
     private ArrayList<String> listaMosse;
     private ListIterator<String> iteratorMosse;
 
-    private boolean showing = false, showingTimer = false;
+    //private boolean showing = false, showingTimer = false;
     private float xMin, xMax, yMin, yMax;
     private float x1, y1;
     private int activePtrId = -1, touchMode = NONE;
 
-    private boolean restoreStartTimer = false, restoreOnSetBounds = false;
-    private int restoreTime = 0, restoreCubeDim = 3;
+    //private boolean restoreStartTimer = false, restoreOnSetBounds = false;
+    //private int restoreTime = 0, restoreCubeDim = 3;
 
     public CubeMenu(RubeCube cube, TextureFont font) {
         this.cube = cube;
@@ -70,7 +73,7 @@ public class CubeMenu extends GLEnvironment {
 
     public void init(GL11 gl, Context context) {  //setto la texture e assegno una funzione handler per ogni bottone
 
-        showing = true;
+        //showing = true;
         //menuView.animate(new TranslateAnimation(10, 0f, MENU_HEIGHT, 0f));
         menuView.setTexture(gl, context, R.drawable.menu_background);
 
@@ -171,6 +174,7 @@ public class CubeMenu extends GLEnvironment {
 
         this.listaMosse = new ArrayList<String>(Arrays.asList(solution.split(" ")));
         this.iteratorMosse = listaMosse.listIterator();
+
     }
 
     public void setBounds(float xMin, float xMax, float yMin, float yMax) { //posiziono ivari elementi sullo schermo
@@ -237,9 +241,9 @@ public class CubeMenu extends GLEnvironment {
         prevMove.setText("Prev. Move");
         nextMove.setText("Next Move");
 
-        restoreTime = 0;
-        restoreStartTimer = false;
-        restoreOnSetBounds = false;
+        //restoreTime = 0;
+        //restoreStartTimer = false;
+        //restoreOnSetBounds = false;
     }
 
     public Vec2 screenToWorld(float x, float y) {
@@ -319,6 +323,27 @@ public class CubeMenu extends GLEnvironment {
                 break;
         }
         return false;
+    }
+
+    public void save(SharedPreferences prefs) {
+        SharedPreferences.Editor edit = prefs.edit();
+
+        //salvo l'oggetto iteratorMosse come json nellle preferences
+
+        Gson gson = new Gson();
+        String json = gson.toJson(iteratorMosse);
+        edit.putString("iteratorMosse", json);
+        System.out.println("JSON saving iteratorMosse: "+json);
+
+        edit.commit();
+
+    }
+
+    public void restore(SharedPreferences prefs) {
+        Gson gson = new Gson();
+        String json = prefs.getString("iteratorMosse", "");
+        System.out.println("JSON restoring iteratorMosse: "+json);
+        iteratorMosse = gson.fromJson(json, ListIterator.class);
     }
 
 }

@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.threeDBJ.MGraphicsLib.math.Quaternion;
+
 import java.util.Arrays;
 
 public class MostraMosseActivity extends Activity {
@@ -33,7 +35,11 @@ public class MostraMosseActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);//MIAO prova a togliere
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);//ottiene il riferimento al file col le preferencies dell'app
+
+        SharedPreferences.Editor edit = prefs.edit();
+        edit.putBoolean("isConfigSaved", false);
+        edit.apply();
 
         bundle = getIntent().getExtras();
         configurazione = bundle.getStringArray ("configurazione");
@@ -46,6 +52,7 @@ public class MostraMosseActivity extends Activity {
 
         long xtime= System.nanoTime();
         cubeView.initialize(prefs);
+        //cubeView.initialize();
         System.out.println("TEMPO initialize "+ (System.nanoTime()-xtime));
         //Button btnnxtmove=(Button)findViewById(R.id.button_id);
 
@@ -61,17 +68,22 @@ public class MostraMosseActivity extends Activity {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
         cubeView.save(prefs);
-        cubeView.onPause();
+        //cubeView.onPause();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         cubeView.restore(prefs);
-        cubeView.onResume();
+        //cubeView.onResume();
     }
 
     private char[] convertConfig(String[] conf1){

@@ -37,7 +37,7 @@
             android:screenOrientation="landscape"> <!-- per indicare che l'app deve essere in orizzontale ! -->
         </activity>
         <activity
-            android:name="com.example.mostraMosse.PuzzleDroidActivity"
+            android:name="com.example.mostraMosse.MostraMosseActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"></activity>

@@ -7,7 +7,7 @@ import timber.log.BuildConfig;
 import timber.log.Timber;
 import timber.log.Timber.DebugTree;
 
-public class PuzzleDroidApp extends Application {
+public class MostraMosseApp extends Application {
 
     @Override
     public void onCreate() {

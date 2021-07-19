@@ -161,7 +161,7 @@ public class CubeMenu extends GLEnvironment {
 
         //System.out.println("DEBUG "+Arrays.toString(tmp)+" --- "+configStr);
         long xtime= System.nanoTime();
-        String solution = Scanner.solve(PuzzleDroidActivity.configurazione, PuzzleDroidActivity.coloriFacce);
+        String solution = Scanner.solve(MostraMosseActivity.configurazione, MostraMosseActivity.coloriFacce);
         solution = solution.replaceAll("  "," ");
         solution = RubeCube.replaceDoubleMove(solution);
         //String solution = Search.solution(configStr,21,6,false);

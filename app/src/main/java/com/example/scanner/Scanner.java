@@ -31,7 +31,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.menu.Instructions;
-import com.example.mostraMosse.PuzzleDroidActivity;
+import com.example.mostraMosse.MostraMosseActivity;
 
 import java.util.ArrayList;
 
@@ -83,7 +83,7 @@ public class Scanner extends Activity implements CvCameraViewListener2 {
         instructionsButton=findViewById(R.id.instructions_button);
         instructionsIntent=new Intent(this, Instructions.class);
         faces = new String[6]; //ci sono 6 facce
-        cubeIntent = new Intent(this, PuzzleDroidActivity.class);
+        cubeIntent = new Intent(this, MostraMosseActivity.class);
 
         if(permission()) { //dopo aver chiesto i permessi per la fotocamera
             //inizializzazione fotocamera

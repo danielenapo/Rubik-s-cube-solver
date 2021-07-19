@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 
 import java.util.Arrays;
 
-public class PuzzleDroidActivity extends Activity {
+public class MostraMosseActivity extends Activity {
 
     SharedPreferences prefs;
     CubeView cubeView;

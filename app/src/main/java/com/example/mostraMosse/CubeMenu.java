@@ -157,7 +157,7 @@ public class CubeMenu extends GLEnvironment {
             }
         }
 
-        String configStr=new String(tmp);
+        //String configStr=new String(tmp);
 
         //System.out.println("DEBUG "+Arrays.toString(tmp)+" --- "+configStr);
         long xtime= System.nanoTime();

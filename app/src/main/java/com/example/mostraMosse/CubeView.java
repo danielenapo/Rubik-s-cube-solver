@@ -56,30 +56,30 @@ public class CubeView extends GLSurfaceView {
     }
 
     public void initialize(SharedPreferences prefs) {
-        long xtime= System.nanoTime();
+        //long xtime= System.nanoTime();
 
         cube = new RubeCube(world, Util.getDimension(prefs),configurazione);
-        System.out.println("||||TEMPO initialize RubeCube "+ (System.nanoTime()-xtime));
+        //System.out.println("||||TEMPO initialize RubeCube "+ (System.nanoTime()-xtime));
 
-        xtime= System.nanoTime();
+        //xtime= System.nanoTime();
         menu = new CubeMenu(cube, font);
-        System.out.println("||||TEMPO initialize CubeMenu "+ (System.nanoTime()-xtime));
+        //System.out.println("||||TEMPO initialize CubeMenu "+ (System.nanoTime()-xtime));
 
-        xtime= System.nanoTime();
+        //xtime= System.nanoTime();
         renderer = new CubeRenderer(getContext(), font, world, cube, menu, prefs);
-        System.out.println("||||TEMPO initialize CubeRender "+ (System.nanoTime()-xtime));
+        //System.out.println("||||TEMPO initialize CubeRender "+ (System.nanoTime()-xtime));
 
-        xtime= System.nanoTime();
+        //xtime= System.nanoTime();
         cube.setRenderer(renderer);
-        System.out.println("||||TEMPO initialize setRender "+ (System.nanoTime()-xtime));
+        //System.out.println("||||TEMPO initialize setRender "+ (System.nanoTime()-xtime));
 
-        xtime= System.nanoTime();
+        //xtime= System.nanoTime();
         world.setRubeCube(cube);
-        System.out.println("||||TEMPO initialize setRubeCube "+ (System.nanoTime()-xtime));
+        //System.out.println("||||TEMPO initialize setRubeCube "+ (System.nanoTime()-xtime));
 
-        xtime= System.nanoTime();
+        //xtime= System.nanoTime();
         setRenderer(renderer);
-        System.out.println("TEMPO initialize render"+ (System.nanoTime()-xtime));
+        //System.out.println("TEMPO initialize render"+ (System.nanoTime()-xtime));
 
     }
 

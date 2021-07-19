@@ -6,8 +6,7 @@ import android.content.SharedPreferences.Editor;
 public class Util {
     private static String DIMENSION_KEY = "dim";
     private static String DIMENSION_SAVED = "saved";
-    private static String TIMER_TIME_KEY = "timer_time";
-    private static String TIMER_STARTED_KEY = "timer_started";
+
 
     private static void savePref(SharedPreferences prefs, String key1, int value1,
                                     String key2, boolean value2) {

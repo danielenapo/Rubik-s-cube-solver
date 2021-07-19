@@ -100,7 +100,7 @@ public class CubeRenderer implements GLSurfaceView.Renderer {
         gl.glMatrixMode(GL11.GL_MODELVIEW);
         gl.glLoadIdentity();
 
-        // TODO -- Move this to initialization?
+
         GLU.gluLookAt(gl, 0f, 0f, 7f,
                 0f, 0f, 0f,
                 0f, 1f, 0f);

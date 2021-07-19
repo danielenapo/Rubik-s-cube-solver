@@ -33,14 +33,14 @@ public class MostraMosseActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);//MIAO prova a togliere
 
         bundle = getIntent().getExtras();
         configurazione = bundle.getStringArray ("configurazione");
         coloriFacce = bundle.getCharArray("colori facce");
         configAsChArr=convertConfig(configurazione);
 
-        System.out.println("||||CONFIG "+ Arrays.toString(configAsChArr));
+        //System.out.println("||||CONFIG "+ Arrays.toString(configAsChArr));
         //System.out.println("||||CONFIG "+configurazione[0]);
         cubeView = new CubeView(this, configAsChArr);
 

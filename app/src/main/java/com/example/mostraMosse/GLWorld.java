@@ -24,15 +24,15 @@ public class GLWorld extends GLEnvironment {
     Mat4 rotate = new Mat4();
     private ArcBall arcBall = new ArcBall();
     private float scale = 1f;
-    private boolean paused = false;
+    //private boolean paused = false;
 
     public void setRubeCube(RubeCube cube) {
         this.cube = cube;
     }
 
-    public void pauseCube(boolean pause) {
+    /*public void pauseCube(boolean pause) {
         this.paused = pause;
-    }
+    }*/
 
     public void draw(GL11 gl) {
         super.draw(gl);
@@ -43,7 +43,7 @@ public class GLWorld extends GLEnvironment {
         gl.glPushMatrix();
         gl.glScalef(scale, scale, scale);
         gl.glMultMatrixf(rotate.val, 0);
-        if (!paused) {
+        //if (!paused) {
             cube.animate();
             //gl.glBindTexture(GL11.GL_TEXTURE_2D, mTexture.id);
             colorBuffer.position(0);
@@ -54,7 +54,7 @@ public class GLWorld extends GLEnvironment {
             gl.glColorPointer(4, GL10.GL_FLOAT, 0, colorBuffer);
             gl.glTexCoordPointer(2, GL11.GL_FLOAT, 0, textureBuffer);
             gl.glDrawElements(GL10.GL_TRIANGLES, indexCount, GL10.GL_UNSIGNED_SHORT, indexBuffer);
-        }
+        //}
         gl.glPopMatrix();
     }
 

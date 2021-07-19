@@ -54,7 +54,7 @@ public class DragThread extends Thread{
         //curLayer.animate();
         //setThreadFinito(true);
 
-        cube.animate();
+        //cube.animate();
 
         try {
             Thread.sleep(250);

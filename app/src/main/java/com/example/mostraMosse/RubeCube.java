@@ -114,7 +114,7 @@ public class RubeCube {
     private void addShapes(GLWorld world) {
         float curX, curY, curZ;
         curX = curY = curZ = -1f;
-        // TODO -- scale with dim
+
         space = 1f / (dim * 15f);
         cubeSize = (2f - ((float) dim - 1f) * space) / (float) dim;
         // Add cubes and layers
@@ -651,7 +651,7 @@ public class RubeCube {
                 mode = DRAG;
                 activePtrId = e.getPointerId(0);
                 world.dragStart(x1, y1);
-                Vec3 coords = mRenderer.screenToWorld(getRatio(x1, y1));
+                //Vec3 coords = mRenderer.screenToWorld(getRatio(x1, y1));
 
                 break;
             }
@@ -723,7 +723,7 @@ public class RubeCube {
             curLayer.dragEnd();
         }
     }
-
+/*
     private final Runnable resetWorld = new Runnable() {
         public void run() {
             GLWorld temp = new GLWorld();
@@ -744,6 +744,7 @@ public class RubeCube {
             world.colorBuffer = temp.colorBuffer;
         }
     };
+*/
 
 
 
@@ -978,7 +979,7 @@ public class RubeCube {
     }
 
     public static String replaceDoubleMove(String solution){
-        String strOut;
+        //String strOut;
         char mossa;
         //System.out.println("|||DEBUG||| soluzione0: "+solution);
         //trovo gli indici dei "2"
@@ -998,11 +999,6 @@ public class RubeCube {
                 lastIndex += 2;
             }
         }
-
-
-
-
-
         return solution;
     }
 

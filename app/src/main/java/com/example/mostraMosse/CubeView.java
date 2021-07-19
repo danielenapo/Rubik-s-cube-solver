@@ -125,19 +125,9 @@ public class CubeView extends GLSurfaceView {
         //menu.restore(prefs);
     }
 
-/*
-    @Override
-    public void onPause() {
-        //niente
-    }
 
-    @Override
-    public void onResume() {
-        //niente
-    }
-*/
     public boolean onTouchEvent(final MotionEvent e) {
-        System.out.println("||||||rotatingFace|||||||| "+CubeView.stopInput);
+        //System.out.println("||||||rotatingFace|||||||| "+CubeView.stopInput);
 
         if(CubeView.stopInput) //se c'è un'animazione in corso, non gestire gli input
             return false;

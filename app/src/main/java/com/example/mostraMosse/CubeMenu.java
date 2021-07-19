@@ -328,22 +328,42 @@ public class CubeMenu extends GLEnvironment {
     public void save(SharedPreferences prefs) {
         SharedPreferences.Editor edit = prefs.edit();
 
-        //salvo l'oggetto iteratorMosse come json nellle preferences
+        //salvo l'indice intero della mossa corrnte
 
-        Gson gson = new Gson();
-        String json = gson.toJson(iteratorMosse);
-        edit.putString("iteratorMosse", json);
-        System.out.println("JSON saving iteratorMosse: "+json);
+        //Gson gson = new Gson();
+        //String json = gson.toJson(iteratorMosse);
+
+        int indexMossa;
+        if(iteratorMosse.hasNext()){
+            indexMossa=iteratorMosse.nextIndex();
+            indexMossa--;
+        }
+        else{   //se sono alla fine delle mosse
+            indexMossa = iteratorMosse.previousIndex();
+        }
+
+        edit.putInt("indexMossa", indexMossa);
+        System.out.println("saving indexMossa: "+indexMossa);
 
         edit.commit();
 
     }
 
     public void restore(SharedPreferences prefs) {
-        Gson gson = new Gson();
-        String json = prefs.getString("iteratorMosse", "");
-        System.out.println("JSON restoring iteratorMosse: "+json);
-        iteratorMosse = gson.fromJson(json, ListIterator.class);
+        //Gson gson = new Gson();
+        //String json = prefs.getString("iteratorMosse", "");
+        int indexMossa = prefs.getInt("indexMossa",-1);
+
+        if(indexMossa == -1){
+            Timber.d("ERRORE: l'iteratore della lista-mosse non è stato ripristinato correttamnete");
+        }
+        else{
+            System.out.println("restoring indexMossa: "+indexMossa);
+            for(int i=0;i<indexMossa;i++)
+                iteratorMosse.next();
+        }
+
+        //iteratorMosse = gson.fromJson(json, ListIterator.class);
     }
 
 }

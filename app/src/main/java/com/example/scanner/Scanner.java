@@ -45,7 +45,7 @@ import static org.opencv.imgproc.Imgproc.rectangle;
 public class Scanner extends Activity implements CvCameraViewListener2 {
     //PARAMETRI OPENCV
     private JavaCameraView camera;//view della fotocamera
-    private BaseLoaderCallback baseLoaderCallback;//bo
+    private BaseLoaderCallback baseLoaderCallback;
     private Mat mRgba;//matrice dei pixel
     private Point textDrawPoint, arrowDrawPoint, textFaceIndex; //coordinate del punto di origine del testo e della freccia direzionale
     private Scalar colorText = new Scalar(0,0,0,255); //colore dei testi
@@ -138,7 +138,7 @@ public class Scanner extends Activity implements CvCameraViewListener2 {
         });
     }
 
-    //METODI DA IMPLEMENTARE DELL'INTERFACCIA (però non so cosa facciano e non le implemento lolz)
+    //METODI DA IMPLEMENTARE DELL'INTERFACCIA
     @Override
     public void onPause() {
         super.onPause();
@@ -326,6 +326,7 @@ public class Scanner extends Activity implements CvCameraViewListener2 {
                 cubeIntent.putExtra("configurazione", faces); //mando configurazione all'activity del cubo
                 cubeIntent.putExtra("colori facce", sides); //mando il vettore dei colori delle facce. ordine:[0:F, 1:R, 2:B, 3:L, 4:U, 5:D]
                 startActivity(cubeIntent); //passa all'activity del cubo
+                index=-1;
             }
         }
 

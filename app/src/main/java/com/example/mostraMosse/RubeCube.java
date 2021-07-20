@@ -105,7 +105,8 @@ public class RubeCube {
 
     public void init() {
         addShapes(world);
-        initSideColors();
+        //initSideColors();
+        initSideColorsAsConfig();
         setupLayers();
     }
 
@@ -171,7 +172,7 @@ public class RubeCube {
         Timber.d("%s: %s", prepend, colors);
     }
 
-    private void initSideColors() {
+    private void initSideColors() { //inizializza il cubo con i colori di default
         int i, j, k;
         for (i = 0; i < faceColors.length; i += 1) {
             for (j = 0; j < dim; j += 1) {
@@ -180,6 +181,85 @@ public class RubeCube {
                 }
             }
         }
+    }
+
+    private void initSideColorsAsConfig() { //inizializza il cubo con i colori della configurazione
+        int i, j, k,c;
+        c=0;
+        int[] configAsInt = new int[54];
+        for(int x=0; x<configurazione.length; x++){
+            configAsInt[x]=traslInt(configurazione[x]);
+        }
+
+        /*
+        *   TODO: (1) qui devo sistemare l'ordine di acquisizione dei faceColors di ogni faccia
+         */
+
+        //  front
+        i = Cube.kFront;
+        for(j= dim-1; j>=0 ; j--){
+            for(k = 0; k< dim; k++){
+                faceColors[i][j][k] = configAsInt[c];
+                c++;
+            }
+        }
+
+        //  right
+        i = Cube.kRight;
+        for(j= dim-1; j>=0; j--){
+            for(k = dim-1; k>=0; k--){
+                faceColors[i][j][k] = configAsInt[c];
+                c++;
+            }
+        }
+
+        //  back
+        i = Cube.kBack;
+        for(j= dim-1; j>=0; j--){
+            for(k = dim-1; k>=0; k--){
+                faceColors[i][j][k] = configAsInt[c];
+                c++;
+            }
+        }
+
+        //  left
+        i = Cube.kLeft;
+        for(j= dim-1; j>=0; j--){
+            for(k = 0; k< dim; k++){
+                faceColors[i][j][k] = configAsInt[c];
+                c++;
+            }
+        }
+
+        //  top
+        i = Cube.kTop;
+        for(j= 0; j<dim; j++){
+            for(k = 0; k< dim; k++){
+                faceColors[i][j][k] = configAsInt[c];
+                c++;
+            }
+        }
+
+        //  bottom
+        i = Cube.kBottom;
+        for(j= dim-1; j>=0; j--){
+            for(k = 0; k< dim; k++){
+                faceColors[i][j][k] = configAsInt[c];
+                c++;
+            }
+        }
+
+/*
+        for (i = 0; i < faceColors.length; i += 1) {
+            for (j = 0; j < dim; j += 1) {
+                for (k = 0; k < dim; k += 1) {
+                    faceColors[i][j][k] = configAsInt[c];
+                    c++;
+                }
+            }
+        }
+ */
+
     }
 
     void setupSides() {         //disegna facce con colori default (cubo completato) se chiamato all'inizio, e rende possibile la conservazione della configurazione corrente
@@ -257,6 +337,32 @@ public class RubeCube {
                 return new GLColor(0,0,0);
         }
     }
+
+    int traslInt(char c){
+        switch (c){
+            case 'w':
+                return Cube.kTop;
+
+            case 'b':
+                return Cube.kBack;
+
+            case 'r':
+                return Cube.kRight;
+
+            case 'g':
+                return Cube.kFront;
+
+            case 'y':
+                return Cube.kBottom;
+
+            case 'o':
+                return Cube.kLeft;
+
+            default:
+                return -1;
+        }
+    }
+
 
     void configura(char [] configurazione ) {
         int i, j, k, c;

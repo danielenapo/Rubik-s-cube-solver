@@ -36,11 +36,22 @@ public class MostraMosseActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         prefs = PreferenceManager.getDefaultSharedPreferences(this);//ottiene il riferimento al file col le preferencies dell'app
-/*
+
+
+        //comment that to see preferences working on first onResume() (ONLY DEBUG PURPOSE, le preferences have to be already saved)
         SharedPreferences.Editor edit = prefs.edit();
         edit.putBoolean("isConfigSaved", false);
         edit.apply();
-*/
+
+
+/*
+ *       TODO:
+ *         (1) impostare correttamente faceColors (indipendentemente dall'ordine delle facce in "configurazione") in RubeCube al momento della prima cofigurazione,
+ *              in modo da poter ripristinare la configurazione salvata nelle Preferences on resume
+ *         (2) una volta completato il punto (1) è necessario impostare la Preference "isConfigSaved" come False PRIMA di chiamare la funzione onCreate() di questa Activity
+ *              (deve essere impostata della Activity "Scanner")
+ */
+
         bundle = getIntent().getExtras();
         configurazione = bundle.getStringArray ("configurazione");
         coloriFacce = bundle.getCharArray("colori facce");

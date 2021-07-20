@@ -336,10 +336,11 @@ public class CubeMenu extends GLEnvironment {
         int indexMossa;
         if(iteratorMosse.hasNext()){
             indexMossa=iteratorMosse.nextIndex();
-            indexMossa--;
+            //indexMossa-=1;
         }
         else{   //se sono alla fine delle mosse
             indexMossa = iteratorMosse.previousIndex();
+            indexMossa++;
         }
 
         edit.putInt("indexMossa", indexMossa);

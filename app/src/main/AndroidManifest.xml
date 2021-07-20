@@ -24,18 +24,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OpencvTest">
-        <activity android:name="com.example.menu.Instructions"></activity>
-        <activity android:name="com.example.menu.Menu">
+
+        <activity
+            android:name="com.example.menu.Menu"
+            android:screenOrientation="portrait">
             <intent-filter> <!-- imposto il menu come activity di partenza! -->
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.example.menu.Instructions"
+            android:screenOrientation="portrait"></activity>
+
         <activity
             android:name="com.example.scanner.Scanner"
             android:screenOrientation="landscape"> <!-- per indicare che l'app deve essere in orizzontale ! -->
         </activity>
+
         <activity
             android:name="com.example.mostraMosse.MostraMosseActivity"
             android:label="@string/app_name"

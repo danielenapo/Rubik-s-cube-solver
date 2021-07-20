@@ -1,6 +1,6 @@
 package com.example.mostraMosse;
 
-import android.content.Context;
+import  android.content.Context;
 import android.content.SharedPreferences;
 import android.view.MotionEvent;
 
@@ -15,7 +15,7 @@ import com.threeDBJ.MGraphicsLib.texture.TextureView.TextureClickListener;
 import com.threeDBJ.MGraphicsLib.texture.TextureFont;
 
 import com.threeDBJ.MGraphicsLib.texture.TextureView;
-import com.google.gson.*;
+//import com.google.gson.*;
 //import com.threeDBJ.puzzleDroidFree.util.Util;
 
 //import org.kociemba.twophase.Search;

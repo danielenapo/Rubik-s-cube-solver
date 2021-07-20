@@ -138,26 +138,6 @@ public class Scanner extends Activity implements CvCameraViewListener2 {
         });
     }
 
-    //METODI DA IMPLEMENTARE DELL'INTERFACCIA
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (camera != null)
-            camera.disableView();
-    }
-
-    public void onDestroy() {
-        super.onDestroy();
-        if (camera != null)
-            camera.disableView();
-    }
-
-    @Override
-    public void onCameraViewStarted(int width, int height) {
-    }
-
-    public void onCameraViewStopped() {
-    }
 
 
     //+++++++++++++++++++FUNZIONE SU CUI SI FANNO OPERAZIONI SULL'IMMAGINE (per ogni frame da come parametro l'immagine inputFrame presa dalla telecamera)++++++++++++++++
@@ -199,6 +179,7 @@ public class Scanner extends Activity implements CvCameraViewListener2 {
         for (int i = 0; i < squares.size(); i++) {
             Square s = squares.get(i);
             Scalar showColor = charToRGB(s.getColor());
+            rectangle(mRgba, s.getTopLeftPoint(), s.getBottomRightPoint(), colorText, thicknessRect+7);
             rectangle(mRgba, s.getTopLeftPoint(), s.getBottomRightPoint(), showColor, thicknessRect);
             //textDrawPoint = new Point(s.getCenter().x - 100, s.getCenter().y); //per lettera del colore (debug)
             //putText(mRgba,s.getColor(),textDrawPoint,1,6,colorText,8);
@@ -206,8 +187,8 @@ public class Scanner extends Activity implements CvCameraViewListener2 {
 
         //TESTO
         textFaceIndex = new Point(80, 150); //stampa il contatore della faccia in alto a sx;
-        putText(mRgba, "Face "+(index+2), textFaceIndex, font, 5,colorTextBorder, 12 );
-        putText(mRgba, "Face "+(index+2), textFaceIndex, font, 5, colorText, 8 ); //testo indice faccia
+        putText(mRgba, "Face "+(index+2), textFaceIndex, font, 4,colorTextBorder, 11 );
+        putText(mRgba, "Face "+(index+2), textFaceIndex, font, 4, colorText, 7 ); //testo indice faccia
 
         //stampo la direzione in cui girare
         arrowDrawPoint = new Point(80, mRgba.height() - 300);
@@ -410,6 +391,26 @@ public class Scanner extends Activity implements CvCameraViewListener2 {
         return showColor;
     }
 
+    //METODI DA IMPLEMENTARE DELL'INTERFACCIA
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (camera != null)
+            camera.disableView();
+    }
+
+    public void onDestroy() {
+        super.onDestroy();
+        if (camera != null)
+            camera.disableView();
+    }
+
+    @Override
+    public void onCameraViewStarted(int width, int height) {
+    }
+
+    public void onCameraViewStopped() {
+    }
     //++++++++++++++++++++++++++++++INIZIALIZZAZIONE OPENCV++++++++++++++++++++++++++
     @Override
     public void onResume() {

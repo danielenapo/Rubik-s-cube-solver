@@ -608,10 +608,15 @@ public class RubeCube {
 
     /* Update layers and sides after a rotation */
     public void endLayerAnimation(int axis, float angle, int index) {
-        int nTurns = (int) (angle / (Layer.HALFPI - 0.01f));
+        //int nTurns = (int) (angle / (Layer.HALFPI - 0.01f));
+        int nTurns=0;
+
+        if(angle>0)
+            nTurns=1;
+        else if(angle<0)
+            nTurns=-1;
+
         transposeCubes(nTurns, axis, index);
-
-
         // world.pauseCube(true);
         // world.clear();
         // addShapes(world);
@@ -763,7 +768,7 @@ public class RubeCube {
         edit.putFloat("Rw", rotation.w);
 
         edit.putBoolean("isConfigSaved",true);
-        edit.apply();
+        edit.commit();
 
     }
 

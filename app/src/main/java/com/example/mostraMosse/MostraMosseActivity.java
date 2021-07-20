@@ -36,11 +36,11 @@ public class MostraMosseActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         prefs = PreferenceManager.getDefaultSharedPreferences(this);//ottiene il riferimento al file col le preferencies dell'app
-
+/*
         SharedPreferences.Editor edit = prefs.edit();
         edit.putBoolean("isConfigSaved", false);
         edit.apply();
-
+*/
         bundle = getIntent().getExtras();
         configurazione = bundle.getStringArray ("configurazione");
         coloriFacce = bundle.getCharArray("colori facce");

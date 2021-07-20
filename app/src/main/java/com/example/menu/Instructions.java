@@ -17,6 +17,8 @@ public class Instructions extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructions);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         text=findViewById(R.id.textId);
         text.setText("SCANNER:\n" +
                 "- Be sure to be in proper light conditions, or else the colors cannot be viewed correctly. The light should not " +
@@ -36,5 +38,12 @@ public class Instructions extends AppCompatActivity {
                 "- Press \"NEXT MOVE\" to show the next move to follow.\n" +
                 "- press \"PREV. MOVE\" to undo the last action. ");
     }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
+    }
+
 
 }

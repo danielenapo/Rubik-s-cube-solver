@@ -2,6 +2,8 @@
 Android app that solves the standard 3x3x3 Rubik's cube.
 It scans the faces using OpenCV, then it solves the cube in less than 26 moves (with Kociemba's algorithm), and lastly it shows the calculated moves in a 3D reproduction of the cube. 
 It's possible to see each move and spin the cube.
+
+The app was made for a university project (Object Oriented Programming course).
 ### Requisites
 The app only work's with a 3x3x3 cube, with colors red, blue, green, orange, yellow and white.
 

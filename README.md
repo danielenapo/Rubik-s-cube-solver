@@ -10,6 +10,10 @@ The app only work's with a 3x3x3 cube, with colors red, blue, green, orange, yel
 ## APK Download 
 [link](https://github.com/danielenapo/Rubik-s-cube-solver/releases/download/v1.0/rubik.apk)
 
+## Contributions
+This was a team project made by [Daniele Napolitano](https://github.com/danielenapo) and [Niccolò Serafino](https://github.com/serafinon). The work was divided in two parts:
+* Daniele -> Cube scanning
+* Niccolò -> 3D Moves visualization
 
 # Design
 I've imagined to redesign the app for another university project (Software Engineering course).

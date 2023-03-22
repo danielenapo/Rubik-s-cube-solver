@@ -23,10 +23,10 @@ You can read the PDF in this [link](https://github.com/danielenapo/Rubik-s-cube-
 ## Screenshots
 <div align="center">
   <b>Scanning:</b><br>
-  <img src="https://user-images.githubusercontent.com/33985608/152869590-5c9b2360-063c-490f-a6a0-7c8927f23990.png" width="900"/>
+  <img src="rubikScan.gif" width="700"/>
 
    <b>Moves visualization:</b><br>
-  <img src="https://user-images.githubusercontent.com/33985608/152869631-b73221ce-54d0-4d5b-bdd1-a3e08c073212.png" height="700"/>
+  <img src="rubikMoves.gif" height="700"/>
 </div>
 
 
